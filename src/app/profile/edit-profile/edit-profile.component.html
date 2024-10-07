@@ -1,0 +1,67 @@
+<div class="flex justify-center items-center h-screen bg-white">
+  <div class="card w-full max-w-lg bg-white shadow-xl">
+      <div class="card-body">
+          <h2 class="card-title text-center text-black">Edit Profile</h2>
+
+          <form (ngSubmit)="onUpdateProfile()">
+              <!-- Profile Picture -->
+              <div class="flex justify-center mb-4">
+                  <div class="avatar">
+                      <div class="w-24 rounded-full">
+                          <img [src]="user.profilePicture" alt="Profile Picture" />
+                      </div>
+                  </div>
+              </div>
+
+              <!-- Profile Picture Upload -->
+              <div class="form-control mb-4">
+                  <label class="label">
+                      <span class="label-text">Upload New Picture</span>
+                  </label>
+                  <input 
+                      type="file" 
+                      (change)="onFileSelected($event)" 
+                      accept="image/*" 
+                      class="input input-bordered bg-white text-black" 
+                  />
+              </div>
+
+              <!-- Name Input -->
+              <div class="form-control mb-4">
+                  <label class="label">
+                      <span class="label-text">Name</span>
+                  </label>
+                  <input 
+                      type="text" 
+                      [(ngModel)]="user.name" 
+                      name="name" 
+                      class="input input-bordered bg-white text-black" 
+                      required 
+                  />
+              </div>
+
+              <!-- Email Input -->
+              <div class="form-control mb-4">
+                  <label class="label">
+                      <span class="label-text">Email</span>
+                  </label>
+                  <input 
+                      type="email" 
+                      [(ngModel)]="user.email" 
+                      name="email" 
+                      class="input input-bordered bg-white text-black" 
+                      required 
+                  />
+              </div>
+
+              <!-- Button Group (Cancel & Save Changes) -->
+              <div class="form-control mt-6 flex justify-between">
+                  <button type="button" (click)="cancel()" class="btn btn-secondary bg-red-500 hover:bg-red-600 text-white">Cancel</button>
+              </div>
+              <div class="form-control mt-6 flex justify-between">
+                  <button type="submit" (click)="submit()"  class="btn btn-primary bg-blue-500 hover:bg-blue-600 text-white">Save Changes</button>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+/* feedback-form.component.css */
+.textarea {
+    resize: none; /* Prevent resizing */
+  }
+  

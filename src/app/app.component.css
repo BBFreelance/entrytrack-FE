@@ -1,0 +1,20 @@
+.tooltip {
+    position: absolute;
+    top: 100%; /* Positions the tooltip below the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4a5568; /* Tailwind gray-800 */
+    color: white;
+    font-size: 0.75rem; /* Tailwind text-xs */
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem; /* Tailwind rounded */
+    opacity: 0;
+    pointer-events: none; /* Prevents blocking the link */
+    transition: opacity 0.2s ease-in-out;
+    margin-top: 0.5rem; /* Adds space between the tooltip and the icon */
+  }
+  
+  .group:hover .tooltip {
+    opacity: 1;
+  }
+  

@@ -1,0 +1,59 @@
+<div class="container mx-auto p-4">
+    <div class="container mx-auto p-4">
+        <h2 class="text-2xl font-bold mb-4 text-black">User Management</h2>
+
+        <!-- Create User Button with blue background, adjusted size and style -->
+        <button 
+            (click)="createUser()" 
+            class="btn btn-sm bg-blue-600 text-white border-0 hover:bg-blue-500 transition duration-200 mb-4">
+            Create User
+        </button>
+
+        <!-- Form and Table Container with white background and shadow -->
+        <div class="bg-white shadow-lg rounded-lg p-6">
+            <div class="overflow-x-auto">
+                <table class="table w-full bg-white text-black border-collapse">
+                    <thead>
+                        <tr>
+                            <th class="text-black">ID</th>
+                            <th class="text-black">Name</th>
+                            <th class="text-black">Email</th>
+                            <th class="text-black">Role</th>
+                            <th class="text-black">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of paginatedUsers" class="hover:bg-gray-100 border-b-0">
+                            <td class="text-black border-b-0">{{ user.id }}</td>
+                            <td class="text-black border-b-0">{{ user.name }}</td>
+                            <td class="text-black border-b-0">{{ user.email }}</td>
+                            <td class="text-black border-b-0">{{ user.role }}</td>
+                            <td class="space-x-1 border-b-0"> <!-- Adjust spacing between buttons -->
+                                <button class="btn btn-sm bg-blue-600 text-white border-0" (click)="editUser(user.id)">Edit</button>
+                                <button class="btn btn-sm bg-red-600 text-white border-0" (click)="deleteUser(user.id)">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Pagination Buttons -->
+  <div class="flex justify-between items-center mt-4">
+    <button 
+        (click)="currentPage = currentPage - 1" 
+        [disabled]="currentPage === 1"
+        class="btn btn-sm bg-black text-white border-0 hover:bg-gray-800 transition duration-200"
+    >
+        Previous
+    </button>
+    <span class="text-black">Page {{ currentPage }} of {{ totalPages }}</span>
+    <button 
+        (click)="currentPage = currentPage + 1" 
+        [disabled]="currentPage === totalPages"
+        class="btn btn-sm bg-black text-white border-0 hover:bg-gray-800 transition duration-200"
+    >
+        Next
+    </button>
+</div>
+</div>

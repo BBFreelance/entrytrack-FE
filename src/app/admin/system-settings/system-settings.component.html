@@ -1,0 +1,25 @@
+<div class="max-w-lg mx-auto p-6 bg-white border border-gray-300 rounded-lg shadow-md">
+    <h1 class="text-2xl font-bold text-center mb-6 text-black">System Settings</h1>
+    <form class="space-y-4">
+      <div *ngFor="let setting of settings" class="form-control">
+        <label class="label" for="setting{{setting.setting_id}}">
+          <span class="label-text text-black">{{setting.setting_name}}</span> <!-- Label text in black -->
+        </label>
+        <select 
+          id="setting{{setting.setting_id}}" 
+          [(ngModel)]="setting.setting_value" 
+          (change)="updateSetting(setting)"
+          name="setting{{setting.setting_id}}"
+          class="select select-bordered w-full bg-white text-black" 
+        >
+          <option *ngFor="let option of dropdownOptions[setting.setting_name]" [value]="option" class="bg-white text-black">{{option}}</option> <!-- Dropdown options text black -->
+        </select>
+      </div>
+
+      <div class="form-control mt-6 flex justify-between">
+        <button type="button" (click)="cancel()" class="btn btn-secondary bg-red-500 hover:bg-red-600 text-white">Cancel</button>
+    </div>
+      <button type="submit" class="btn btn-primary w-full bg-blue-500 text-white hover:bg-blue-600">Save Settings</button>
+    </form>
+  </div>
+  

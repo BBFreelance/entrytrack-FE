@@ -1,0 +1,54 @@
+<div class="container mx-auto p-4">
+  <h2 class="text-2xl font-bold mb-4 text-black">Staff Entry Log Records</h2>
+
+  <!-- Table of Entry Logs -->
+  <div class="bg-white shadow-lg rounded-lg p-6">
+      <div class="overflow-x-auto">
+          <table class="table w-full text-black border-collapse">
+              <!-- Table Head -->
+              <thead>
+                  <tr>
+                      <th class="text-black">Log ID</th>
+                      <th class="text-black">User ID</th>
+                      <th class="text-black">Staff ID</th>
+                      <th class="text-black">Entry Time</th>
+                      <th class="text-black">Exit Time</th>
+                      <th class="text-black">Actions</th>
+                  </tr>
+              </thead>
+              <!-- Table Body -->
+              <tbody>
+                  <tr *ngFor="let log of paginatedEntryLogs" class="hover:bg-gray-100 border-b-0">
+                      <td class="border-b-0">{{ log.log_id }}</td>
+                      <td class="border-b-0">{{ log.user_id }}</td>
+                      <td class="border-b-0">{{ log.staff_id }}</td>
+                      <td class="border-b-0">{{ log.entry_time }}</td>
+                      <td class="border-b-0">{{ log.exit_time }}</td>
+                      <td class="space-x-1 border-b-0">
+                          <button class="btn btn-sm bg-red-600 text-white border-0" (click)="deleteLog(log.log_id)">Delete</button>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+
+  <!-- Pagination Buttons -->
+  <div class="flex justify-between items-center mt-4">
+      <button 
+          (click)="previousPage()" 
+          [disabled]="currentPage === 1"
+          class="btn btn-sm bg-black text-white border-0 hover:bg-gray-800 transition duration-200"
+      >
+          Previous
+      </button>
+      <span class="text-black">Page {{ currentPage }} of {{ totalPages }}</span>
+      <button 
+          (click)="nextPage()" 
+          [disabled]="currentPage === totalPages"
+          class="btn btn-sm bg-black text-white border-0 hover:bg-gray-800 transition duration-200"
+      >
+          Next
+      </button>
+  </div>
+</div>
