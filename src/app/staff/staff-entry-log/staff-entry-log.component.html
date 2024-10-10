@@ -32,22 +32,5 @@
       </div>
   </div>
 
-  <!-- Pagination Buttons -->
-  <div class="flex justify-between items-center mt-4">
-      <button 
-          (click)="previousPage()" 
-          [disabled]="currentPage === 1"
-          class="btn btn-sm bg-black text-white border-0 hover:bg-gray-800 transition duration-200"
-      >
-          Previous
-      </button>
-      <span class="text-black">Page {{ currentPage }} of {{ totalPages }}</span>
-      <button 
-          (click)="nextPage()" 
-          [disabled]="currentPage === totalPages"
-          class="btn btn-sm bg-black text-white border-0 hover:bg-gray-800 transition duration-200"
-      >
-          Next
-      </button>
-  </div>
+ 
 </div>

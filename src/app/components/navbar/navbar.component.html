@@ -1,0 +1,191 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+/>
+
+<div
+  class="drawer drawer-mobile h-screen bg-gradient-to-b from-blue-500 to-white"
+>
+  <!-- Sidebar (Drawer) -->
+  <input id="drawer-toggle" type="checkbox" class="drawer-toggle" />
+  <div class="drawer-content flex flex-col h-screen bg-white">
+    <!-- White background for the content -->
+    <!-- Header with Navbar -->
+    <header
+      class="w-full bg-white text-black p-4 flex justify-between items-center"
+    >
+      <!-- Updated Navbar color -->
+      <!-- App Name or Logo -->
+      <div class="text-xl font-bold">EntryTrack</div>
+
+      <!-- Navigation Links (aligned to the right) -->
+      <nav class="hidden lg:flex space-x-4 items-center">
+        <!-- Dashboard Link -->
+        <div class="relative group flex flex-col items-center">
+          <a
+            routerLink="/dashboard"
+            class="btn btn-link text-black flex flex-col items-center"
+          >
+            <button
+              (click)="navigateToAdminDashboard()"
+              class="btn btn-link text-black flex items-center"
+            >
+              <i class="fa-solid fa-chart-line text-xl"></i>
+              <!-- Dashboard Icon -->
+            </button>
+          </a>
+          <div
+            class="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+            style="pointer-events: none"
+          >
+            Dashboard
+          </div>
+        </div>
+
+        <!-- Access Control Link -->
+        <div class="relative group flex flex-col items-center">
+          <a
+            routerLink="/access-control-list"
+            class="btn btn-link text-black flex flex-col items-center"
+          >
+            <button
+              (click)="navigateToACL()"
+              class="btn btn-link text-black flex items-center"
+            >
+              <i class="fa-solid fa-lock text-xl"></i>
+              <!-- Access Control Icon -->
+            </button>
+          </a>
+          <div
+            class="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+            style="pointer-events: none"
+          >
+            Access Control
+          </div>
+        </div>
+
+        <!-- QR Code Link -->
+        <div class="relative group flex flex-col items-center">
+          <a
+            routerLink="/qr-code-generator"
+            class="btn btn-link text-black flex flex-col items-center"
+          >
+            <button
+              (click)="navigateToQRCode()"
+              class="btn btn-link text-black flex items-center"
+            >
+              <i class="fa-solid fa-qrcode text-xl"></i>
+              <!-- QR Code Icon -->
+            </button>
+          </a>
+          <div
+            class="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+            style="pointer-events: none"
+          >
+            QR Code
+          </div>
+        </div>
+
+        <!-- User Management Link -->
+        <div class="relative group flex flex-col items-center">
+          <a
+            routerLink="/user-management"
+            class="btn btn-link text-black flex flex-col items-center"
+          >
+            <button
+              (click)="navigateToUserManagement()"
+              class="btn btn-link text-black flex items-center"
+            >
+              <i class="fa-solid fa-users text-xl"></i>
+              <!-- User Management Icon -->
+            </button>
+          </a>
+          <div
+            class="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+            style="pointer-events: none"
+          >
+            User Management
+          </div>
+        </div>
+
+        <!-- Feedback Link -->
+        <div class="relative group flex flex-col items-center">
+          <a
+            routerLink="/feedback-list"
+            class="btn btn-link text-black flex flex-col items-center"
+          >
+            <button
+              (click)="navigateToFeedback()"
+              class="btn btn-link text-black flex items-center"
+            >
+              <i class="fa-solid fa-comment-dots text-xl"></i>
+              <!-- Feedback Icon -->
+            </button>
+          </a>
+          <div
+            class="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+            style="pointer-events: none"
+          >
+            Feedback
+          </div>
+        </div>
+
+        <!-- Profile Dropdown -->
+        <div class="dropdown dropdown-end">
+          <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+            <div
+              class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-200 overflow-hidden"
+            >
+              <img
+                src="assets/images/userprofile.png"
+                alt="User Profile"
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </label>
+          <ul
+            tabindex="0"
+            class="dropdown-content menu p-2 shadow bg-white rounded-box w-52 text-black"
+          >
+            <li><a href="/profile" class="hover:bg-gray-200">Profile</a></li>
+            <li>
+              <a href="/system-settings" class="hover:bg-gray-200">Settings</a>
+            </li>
+            <li><a href="/login" class="hover:bg-gray-200">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Drawer Toggle Button (Mobile) -->
+      <label for="drawer-toggle" class="btn btn-primary drawer-button lg:hidden"
+        >Menu</label
+      >
+    </header>
+
+    <!-- Main Content -->
+    <div class="p-6 flex-grow overflow-auto">
+      <ng-content></ng-content>
+      <!-- Main content will be rendered here -->
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer footer-center p-4 bg-black text-white mt-auto">
+      <!-- Footer remains black with white text -->
+      <div>
+        <p>&copy; 2024 - EntryTrack</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Drawer Sidebar (Visible on Mobile) -->
+  <div class="drawer-side">
+    <label for="drawer-toggle" class="drawer-overlay"></label>
+    <ul class="menu p-4 w-64 bg-base-200 text-base-content">
+      <!-- Sidebar content (Navigation links for mobile) -->
+      <li><a routerLink="/user-management">User Management</a></li>
+      <li><a routerLink="/access-control-list">Access Control</a></li>
+      <li><a routerLink="/qr-code-generator">QR Code</a></li>
+      <li><a routerLink="/feedback-list">Feedback</a></li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "https://entry-api-c3851cedfc0d.herokuapp.com",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
