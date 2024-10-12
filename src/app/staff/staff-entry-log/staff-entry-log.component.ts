@@ -14,11 +14,11 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class StaffEntryLogComponent {
   entryLogs: EntryLogData[] = []; 
-
   currentPage: number = 1;
   itemsPerPage: number = 7; // Number of logs per page
   totalPages: number = Math.ceil(this.entryLogs.length / this.itemsPerPage); // Calculate total pages
   paginatedEntryLogs: EntryLogData[] = [];
+  isLoading: boolean = true; // Add loading state
 
   constructor(private staffService: StaffService) {}
 
@@ -34,12 +34,13 @@ export class StaffEntryLogComponent {
         this.entryLogs = logs.data; // Now logs.data should be correctly recognized as EntryLogData[]
         this.paginatedEntryLogs = logs.data;
         this.totalPages = Math.ceil(this.entryLogs.length / this.itemsPerPage); // Calculate total pages
-        // this.updatePaginatedLogs(); // Load logs for the current page
         console.log('logs', logs);
         console.log('this.entryLogs', this.entryLogs);
+        this.isLoading = false; // Set loading to false after data is fetched
       },
       (error) => {
         console.error('Error fetching entry logs:', error);
+        this.isLoading = false; // Also stop loading on error
       }
     );
   }
