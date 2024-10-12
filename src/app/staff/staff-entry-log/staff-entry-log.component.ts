@@ -1,50 +1,46 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-interface EntryLog {
-  log_id: number;
-  user_id: number;
-  staff_id: number;
-  entry_time: string;
-  exit_time: string;
-}
+import { EntryLog } from '../../CORE/models/entry-log/entry-log.model';
+import { StaffService } from '../../CORE/services/staff/staff.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-staff-entry-log',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HttpClientModule],
   templateUrl: './staff-entry-log.component.html',
-  styleUrls: ['./staff-entry-log.component.css']
+  styleUrls: ['./staff-entry-log.component.css'],
+  providers: [StaffService],
 })
 export class StaffEntryLogComponent {
-  entryLogs: EntryLog[] = [
-    { log_id: 1, user_id: 101, staff_id: 1001, entry_time: '2024-10-01 08:00:00', exit_time: '2024-10-01 17:00:00' },
-    { log_id: 2, user_id: 102, staff_id: 1002, entry_time: '2024-10-01 09:00:00', exit_time: '2024-10-01 18:00:00' },
-    { log_id: 3, user_id: 103, staff_id: 1003, entry_time: '2024-10-01 07:30:00', exit_time: '2024-10-01 16:30:00' },
-    { log_id: 4, user_id: 104, staff_id: 1004, entry_time: '2024-10-01 08:15:00', exit_time: '2024-10-01 17:15:00' },
-    { log_id: 5, user_id: 105, staff_id: 1005, entry_time: '2024-10-02 08:45:00', exit_time: '2024-10-02 17:45:00' },
-    { log_id: 6, user_id: 106, staff_id: 1006, entry_time: '2024-10-02 09:15:00', exit_time: '2024-10-02 18:15:00' },
-    { log_id: 7, user_id: 107, staff_id: 1007, entry_time: '2024-10-02 07:50:00', exit_time: '2024-10-02 16:50:00' },
-    { log_id: 8, user_id: 108, staff_id: 1008, entry_time: '2024-10-02 08:05:00', exit_time: '2024-10-02 17:05:00' },
-    { log_id: 9, user_id: 109, staff_id: 1009, entry_time: '2024-10-03 09:00:00', exit_time: '2024-10-03 18:00:00' },
-    { log_id: 10, user_id: 110, staff_id: 1010, entry_time: '2024-10-03 08:30:00', exit_time: '2024-10-03 17:30:00' },
-    { log_id: 11, user_id: 111, staff_id: 1011, entry_time: '2024-10-03 07:45:00', exit_time: '2024-10-03 16:45:00' },
-    { log_id: 12, user_id: 112, staff_id: 1012, entry_time: '2024-10-03 08:20:00', exit_time: '2024-10-03 17:20:00' },
-    { log_id: 13, user_id: 113, staff_id: 1013, entry_time: '2024-10-04 09:05:00', exit_time: '2024-10-04 18:05:00' },
-    { log_id: 14, user_id: 114, staff_id: 1014, entry_time: '2024-10-04 08:10:00', exit_time: '2024-10-04 17:10:00' },
-];
-
+  entryLogs: EntryLog[] = [];
 
   currentPage: number = 1;
   itemsPerPage: number = 7; // Number of logs per page
   totalPages: number = Math.ceil(this.entryLogs.length / this.itemsPerPage); // Calculate total pages
   paginatedEntryLogs: EntryLog[] = [];
 
-  constructor() {
-    this.loadEntryLogs(); // Load logs for the current page
+  constructor(private staffService: StaffService) {}
+
+  ngOnInit(): void {
+    this.loadEntryLogs(); // Load logs when the component is initialized
   }
 
   loadEntryLogs(): void {
+    const userId = '123'; // Replace this with the actual user ID
+    this.staffService.getEntryLogList(userId).subscribe(
+      (logs: EntryLog[]) => {
+        this.entryLogs = logs;
+        this.totalPages = Math.ceil(this.entryLogs.length / this.itemsPerPage); // Calculate total pages
+        this.updatePaginatedLogs(); // Load logs for the current page
+      },
+      (error) => {
+        console.error('Error fetching entry logs:', error);
+      }
+    );
+  }
+
+  updatePaginatedLogs(): void {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.paginatedEntryLogs = this.entryLogs.slice(startIndex, endIndex); // Slice logs for the current page

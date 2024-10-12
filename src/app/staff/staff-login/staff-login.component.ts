@@ -15,7 +15,7 @@ import { AuthService } from '../../CORE/services/auth/auth.service';
   imports: [FormsModule, CommonModule, HttpClientModule], // Add FormsModule to the imports array
   templateUrl: './staff-login.component.html',
   styleUrls: ['./staff-login.component.css'],
-  providers: [StaffService]
+  providers: [AuthService]
   
 })
 export class StaffLoginComponent {
