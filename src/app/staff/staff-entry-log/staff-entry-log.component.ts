@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EntryLog } from '../../CORE/models/entry-log/entry-log.model';
+import { EntryLog, EntryLogData } from '../../CORE/models/entry-log/entry-log.model';
 import { StaffService } from '../../CORE/services/staff/staff.service';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -13,12 +13,12 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [StaffService],
 })
 export class StaffEntryLogComponent {
-  entryLogs: EntryLog[] = [];
+  entryLogs: EntryLogData[] = []; 
 
   currentPage: number = 1;
   itemsPerPage: number = 7; // Number of logs per page
   totalPages: number = Math.ceil(this.entryLogs.length / this.itemsPerPage); // Calculate total pages
-  paginatedEntryLogs: EntryLog[] = [];
+  paginatedEntryLogs: EntryLogData[] = [];
 
   constructor(private staffService: StaffService) {}
 
@@ -27,12 +27,16 @@ export class StaffEntryLogComponent {
   }
 
   loadEntryLogs(): void {
-    const userId = '123'; // Replace this with the actual user ID
+    const userId = '34'; // Replace this with the actual user ID
     this.staffService.getEntryLogList(userId).subscribe(
-      (logs: EntryLog[]) => {
-        this.entryLogs = logs;
+      (logs: any) => {
+        // Expecting logs to be of type EntryLog
+        this.entryLogs = logs.data; // Now logs.data should be correctly recognized as EntryLogData[]
+        this.paginatedEntryLogs = logs.data;
         this.totalPages = Math.ceil(this.entryLogs.length / this.itemsPerPage); // Calculate total pages
-        this.updatePaginatedLogs(); // Load logs for the current page
+        // this.updatePaginatedLogs(); // Load logs for the current page
+        console.log('logs', logs);
+        console.log('this.entryLogs', this.entryLogs);
       },
       (error) => {
         console.error('Error fetching entry logs:', error);
@@ -40,11 +44,11 @@ export class StaffEntryLogComponent {
     );
   }
 
-  updatePaginatedLogs(): void {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    this.paginatedEntryLogs = this.entryLogs.slice(startIndex, endIndex); // Slice logs for the current page
-  }
+  // updatePaginatedLogs(): void {
+  //   const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  //   const endIndex = startIndex + this.itemsPerPage;
+  //   this.paginatedEntryLogs = this.entryLogs.slice(startIndex, endIndex); // Slice logs for the current page
+  // }
 
   createEntryLog(): void {
     console.log('Create new entry log logic goes here');
