@@ -29,13 +29,20 @@
                   </td>
                 </tr>
                 <ng-container *ngIf="!isLoading">
-                  <tr *ngFor="let log of paginatedEntryLogs" class="hover:bg-gray-100 border-b-0">
-                    <td class="border-b-0">{{ log.log_id }}</td> <!-- Access log_id directly -->
-                    <td class="border-b-0">{{ log.user_id }}</td> <!-- Access user_id directly -->
-                    <td class="border-b-0">{{ log.staff_id }}</td> <!-- Access staff_id directly -->
-                    <td class="border-b-0">{{ log.entry_time }}</td> <!-- Access entry_time directly -->
-                    <td class="border-b-0">{{ log.exit_time }}</td> <!-- Access exit_time directly -->
-                  </tr>
+                  <ng-container *ngIf="paginatedEntryLogs.length === 0; else logsTable">
+                    <tr class="hover:bg-gray-100 border-b-0">
+                      <td colspan="5" class="text-center">No entry logs available.</td>
+                    </tr>
+                  </ng-container>
+                  <ng-template #logsTable>
+                    <tr *ngFor="let log of paginatedEntryLogs" class="hover:bg-gray-100 border-b-0">
+                      <td class="border-b-0">{{ log.log_id }}</td> <!-- Access log_id directly -->
+                      <td class="border-b-0">{{ log.user_id }}</td> <!-- Access user_id directly -->
+                      <td class="border-b-0">{{ log.staff_id }}</td> <!-- Access staff_id directly -->
+                      <td class="border-b-0">{{ log.entry_time }}</td> <!-- Access entry_time directly -->
+                      <td class="border-b-0">{{ log.exit_time }}</td> <!-- Access exit_time directly -->
+                    </tr>
+                  </ng-template>
                 </ng-container>
               </tbody>
               
