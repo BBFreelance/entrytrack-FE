@@ -6,13 +6,14 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [],
   templateUrl: './staff-dashboard.component.html',
-  styleUrl: './staff-dashboard.component.css'
+  styleUrl: './staff-dashboard.component.css',
 })
 export class StaffDashboardComponent {
-
   constructor(private router: Router) {}
 
- 
+  navigateToProfile() {
+    this.router.navigate(['/profile']);
+  }
 
   navigateToScanQRCode() {
     this.router.navigate(['/scan-qr-code']);
