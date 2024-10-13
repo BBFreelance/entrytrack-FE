@@ -22,6 +22,7 @@ export class StaffLoginComponent {
   email: string = '';
   password: string = '';
   errorMessage: string = '';
+  userData?: Users;
 
   constructor(private router: Router, private authService: AuthService) {}
 
@@ -32,6 +33,13 @@ export class StaffLoginComponent {
         console.log('Login response:', response); // Log the response
 
         if (response.status === '0000') {
+          this.userData = response.data;
+          localStorage.setItem('userData', JSON.stringify({
+            id: this.userData?.id,
+            name: this.userData?.name,
+            email:  this.userData?.email,
+            role:  this.userData?.role
+          }));
           this.router.navigate(['/staff-dashboard']);
         } else {
           // Show alert for invalid email or password
