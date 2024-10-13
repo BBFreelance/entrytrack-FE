@@ -1,35 +1,71 @@
-
-<div class="max-w-xl mx-auto mt-8 p-6 bg-gray-50 border border-gray-300 rounded-lg">
-
-   <button 
-   (click)="createFeedback()" 
-   class="btn btn-sm bg-blue-600 text-white border-0 hover:bg-blue-500 transition duration-200 mb-4">
-   Create Feedback
-</button>
+<div
+  class="max-w-xl mx-auto mt-8 p-6 bg-gray-50 border border-gray-300 rounded-lg"
+>
+  <button
+    (click)="createFeedback()"
+    class="btn btn-sm bg-blue-600 text-white border-0 hover:bg-blue-500 transition duration-200 mb-4"
+  >
+    Create Feedback
+  </button>
 
   <h2 class="text-2xl font-bold mb-6 text-black">Your Feedback</h2>
   <ul class="list-disc pl-5">
-    <li *ngFor="let feedback of feedbackList.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="flex justify-between items-center p-4 mb-3 bg-white border border-gray-200 rounded-lg shadow-md">
-      <div>
-        <p class="text-black">{{ feedback.feedback_text }}</p>
-        <p class="text-sm text-gray-500">{{ feedback.date_submitted | date:'short' }}</p>
-      </div>
-      <button (click)="deleteFeedback(feedback.feedback_id)" class="btn bg-red-600 text-white border-0 btn-sm border-none">Delete</button>
-    </li>
+    <tr *ngIf="isLoading" class="hover:bg-gray-100 border-b-0">
+      <td colspan="5" class="text-center">
+        <!-- Spinner from DaisyUI -->
+        <div class="flex justify-center items-center w-full">
+          <span class="loading loading-spinner loading-xs"></span>
+        </div>
+        <p class="mt-2">Loading...</p>
+      </td>
+    </tr>
+    <ng-container *ngIf="!isLoading">
+      <ng-container *ngIf="feedbackList.length === 0; else feedbackLi">
+        <tr class="hover:bg-gray-100 border-b-0">
+          <td colspan="5" class="text-center">No feedback list available.</td>
+        </tr>
+      </ng-container>
+      <ng-template #feedbackLi>
+        <li
+          *ngFor="
+            let feedback of feedbackList.slice(
+              (currentPage - 1) * itemsPerPage,
+              currentPage * itemsPerPage
+            )
+          "
+          class="flex justify-between items-center p-4 mb-3 bg-white border border-gray-200 rounded-lg shadow-md"
+        >
+          <div>
+            <p class="text-black">{{ feedback.feedback_text }}</p>
+            <p class="text-sm text-gray-500">
+              {{ feedback.date_submitted | date : "short" }}
+            </p>
+          </div>
+          <button
+            (click)="deleteFeedback(feedback.feedback_id.toString())"
+            class="btn bg-red-600 text-white border-0 btn-sm border-none"
+          >
+            Delete
+          </button>
+        </li>
+      </ng-template>
+    </ng-container>
   </ul>
 
   <div class="flex justify-between mt-6">
-    <button 
-      (click)="currentPage = currentPage - 1" 
-      [disabled]="currentPage === 1" 
-      class="btn bg-black hover:bg-gray-800 text-white btn-sm">
+    <button
+      (click)="currentPage = currentPage - 1"
+      [disabled]="currentPage === 1"
+      class="btn bg-black hover:bg-gray-800 text-white btn-sm"
+    >
       Previous
     </button>
     <span class="text-lg">Page {{ currentPage }} of {{ totalPages }}</span>
-    <button 
-      (click)="currentPage = currentPage + 1" 
-      [disabled]="currentPage === totalPages" 
-      class="btn bg-black hover:bg-gray-800 text-white btn-sm">
+    <button
+      (click)="currentPage = currentPage + 1"
+      [disabled]="currentPage === totalPages"
+      class="btn bg-black hover:bg-gray-800 text-white btn-sm"
+    >
       Next
     </button>
   </div>

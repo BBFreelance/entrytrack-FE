@@ -1,3 +1,5 @@
+import { StaffRecordData } from "../staff-record/staff-record";
+
 export interface EntryLogData {
   log_id: number;
   user_id: number;
@@ -7,6 +9,7 @@ export interface EntryLogData {
   created_at?: string;
   updated_at?: string;
   code?: string;
+  staff_record?: StaffRecordData;
 }
 
 export interface EntryLog {
