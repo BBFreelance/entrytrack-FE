@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { StaffService } from '../../CORE/services/staff/staff.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FeedbackData } from '../../CORE/models/feedback/feedback';
+import { getUserSession } from '../../HELPER/user-service';
+import { Users } from '../../CORE/models/users/users.model';
 
 // src/app/models/feedback.model.ts
 export interface Feedback {
@@ -23,17 +25,20 @@ export interface Feedback {
   providers: [StaffService],
 })
 export class StaffFeedbackListComponent implements OnInit {
-  constructor(private router: Router, private staffService: StaffService) {}
+  userData?: Users;
   feedbackList: FeedbackData[] = [];
   isLoading: boolean = true;
 
+  constructor(private router: Router, private staffService: StaffService) {}
+
   ngOnInit(): void {
+    this.userData = getUserSession();
     this.loadFeedbackList();
     console.log('hello');
   }
 
   loadFeedbackList(): void {
-    const userId = '34'; // Replace this with the actual user ID
+    const userId: string = this.userData!.id.toString(); // Replace this with the actual user ID
     this.staffService.getFeedbackByUserid(userId).subscribe(
       (feedback: any) => {
         this.feedbackList = feedback.data;
@@ -54,7 +59,7 @@ export class StaffFeedbackListComponent implements OnInit {
   // Method to delete feedback
   deleteFeedback(feedback_id: string) {
     this.isLoading = true;
-    console.log('deleting feedback...')
+    console.log('deleting feedback...');
     this.staffService.deleteFeedbackById(feedback_id).subscribe(
       (feedback: any) => {
         if (feedback.status === '0000') {

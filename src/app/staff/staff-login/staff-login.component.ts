@@ -38,6 +38,7 @@ export class StaffLoginComponent {
             id: this.userData?.id,
             name: this.userData?.name,
             email:  this.userData?.email,
+            staff_id:  this.userData?.staff_id,
             role:  this.userData?.role
           }));
           this.router.navigate(['/staff-dashboard']);

@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EntryLog, EntryLogData } from '../../CORE/models/entry-log/entry-log.model';
+import {
+  EntryLog,
+  EntryLogData,
+} from '../../CORE/models/entry-log/entry-log.model';
 import { StaffService } from '../../CORE/services/staff/staff.service';
 import { HttpClientModule } from '@angular/common/http';
+import { getUserSession } from '../../HELPER/user-service';
+import { Users } from '../../CORE/models/users/users.model';
 
 @Component({
   selector: 'app-staff-entry-log',
@@ -13,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [StaffService],
 })
 export class StaffEntryLogComponent {
-  entryLogs: EntryLogData[] = []; 
+  userData?: Users;
+  entryLogs: EntryLogData[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 7; // Number of logs per page
   totalPages: number = Math.ceil(this.entryLogs.length / this.itemsPerPage); // Calculate total pages
@@ -23,11 +29,14 @@ export class StaffEntryLogComponent {
   constructor(private staffService: StaffService) {}
 
   ngOnInit(): void {
+    this.userData = getUserSession();
+    console.log('this.userData', this.userData);
     this.loadEntryLogs(); // Load logs when the component is initialized
   }
 
   loadEntryLogs(): void {
-    const userId = '34'; // Replace this with the actual user ID
+    const userId: string = this.userData!.id.toString(); // Replace this with the actual user ID
+
     this.staffService.getEntryLogList(userId).subscribe(
       (logs: any) => {
         // Expecting logs to be of type EntryLog
