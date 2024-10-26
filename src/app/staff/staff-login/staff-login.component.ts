@@ -34,14 +34,20 @@ export class StaffLoginComponent {
 
         if (response.status === '0000') {
           this.userData = response.data;
-          localStorage.setItem('userData', JSON.stringify({
-            id: this.userData?.id,
-            name: this.userData?.name,
-            email:  this.userData?.email,
-            staff_id:  this.userData?.staff_id,
-            role:  this.userData?.role
-          }));
-          this.router.navigate(['/staff-dashboard']);
+
+          if(this.userData?.role === "staff"){
+            localStorage.setItem('userData', JSON.stringify({
+              id: this.userData?.id,
+              name: this.userData?.name,
+              email:  this.userData?.email,
+              staff_id:  this.userData?.staff_id,
+              role:  this.userData?.role
+            }));
+            this.router.navigate(['/staff-dashboard']);
+          }else {
+            alert('You\'re not staff');
+          }
+         
         } else {
           // Show alert for invalid email or password
           alert(response.message || 'Invalid email or password');
