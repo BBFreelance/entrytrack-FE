@@ -43,7 +43,7 @@ export class AdminLoginComponent {
             }));
             this.router.navigate(['/admin-dashboard']);
           }else {
-            alert('You\'re not staff');
+            alert('You\'re not admin');
           }
          
         } else {
