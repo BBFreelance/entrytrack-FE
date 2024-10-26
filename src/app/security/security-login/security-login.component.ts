@@ -42,7 +42,7 @@ export class SecurityLoginComponent {
             }));
             this.router.navigate(['/security-dashboard']);
           }else {
-            alert('You\'re not staff');
+            alert('You\'re not security');
           }
          
         } else {
