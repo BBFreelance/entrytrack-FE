@@ -8,3 +8,9 @@ export interface Users {
   created_at: string;
   updated_at: string;
 }
+
+export interface UsersResponse {
+  status: string;
+  message : string;
+  data: Users;
+}

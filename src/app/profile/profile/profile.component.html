@@ -1,20 +1,22 @@
 <div class="flex justify-center items-center h-screen bg-white">
-    <div class="card w-96 bg-white shadow-xl">
-      <div class="card-body items-center text-center">
-        <div class="avatar">
-          <div class="w-24 rounded-full">
-            <img src="https://i.pravatar.cc/150?img=32" alt="Profile Picture"/>
-          </div>
+  <div class="card w-96 bg-white shadow-xl">
+    <div class="card-body items-center text-center">
+      <div class="avatar">
+        <div class="w-24 rounded-full">
+          <img src="https://i.pravatar.cc/150?img=32" alt="Profile Picture" />
         </div>
-        <h2 class="card-title mt-4">John Doe</h2>
-        <p class="text-sm text-gray-500">Admin</p>
-      
-        <div class="mt-4 flex space-x-4">
-          <button (click)="editProfile()" class="btn btn-primary btn-sm text-white">Edit Profile</button>
-          <button (click)="changePassword()" class="btn btn-accent btn-sm text-white">Change Password</button>
-        </div>
-        
+      </div>
+      <h2 class="card-title mt-4">{{ user.name }}</h2>
+      <p class="text-sm text-gray-500">{{ user.role }}</p>
+
+      <div class="mt-4 flex space-x-4">
+        <button (click)="editProfile()" class="btn btn-primary btn-sm text-white">
+          Edit Profile
+        </button>
+        <button (click)="changePassword()" class="btn btn-accent btn-sm text-white">
+          Change Password
+        </button>
       </div>
     </div>
   </div>
-  
+</div>

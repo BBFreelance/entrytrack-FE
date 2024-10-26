@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,12 +6,12 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+  styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent {
-  user = {
-    name: 'John Doe',
-    role: 'Software Engineer',
+export class ProfileComponent implements OnInit {
+  user: any = {
+    name: '',
+    role: '',
     achievements: 3,
     profilePicture: 'https://i.pravatar.cc/150?img=32'
   };
@@ -19,27 +19,30 @@ export class ProfileComponent {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    // Fetch user data if needed
+    // Check if localStorage is available
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const storedUserData = localStorage.getItem('userData');
+      if (storedUserData) {
+        this.user = JSON.parse(storedUserData);
+      }
+    }
   }
 
   onEditProfile() {
-    // Handle profile edit
     console.log("Edit Profile Clicked");
   }
 
   onChangePassword() {
-    // Handle password change
     console.log("Change Password Clicked");
   }
 
-
   // Method to navigate to the edit profile page
   editProfile() {
-    this.router.navigate(['/edit-profile']); // Change this to your edit profile route
+    this.router.navigate(['/edit-profile']);
   }
 
   // Method to navigate to the change password page
   changePassword() {
-    this.router.navigate(['/change-password']); // Change this to your change password route
+    this.router.navigate(['/change-password']);
   }
 }
