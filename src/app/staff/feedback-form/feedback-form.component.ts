@@ -46,7 +46,6 @@ export class FeedbackFormComponent implements OnInit {
       const feedbackData: FeedbackData = {
         feedback_id: 0,
         user_id: this.userId!, // User ID (replace with actual logged-in user ID)
-        staff_id: this.staffId!, // Staff ID
         feedback_text: this.feedbackText, // Feedback text entered by the user
         date_submitted: new Date().toISOString(), // Current date and time in ISO format
       };

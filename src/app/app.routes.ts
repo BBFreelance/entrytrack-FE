@@ -26,6 +26,9 @@ import { SecurityDashboardComponent } from './security/security-dashboard/securi
 import { SecurityTrackEntryLogComponent } from './security/security-track-entry-log/security-track-entry-log.component';
 import { SecurityAccessControlListComponent } from './security/security-access-control-list/security-access-control-list.component';
 import { IndexComponent } from './index/index.component';
+import { SecurityFeedbackListComponent } from './security/security-feedback-list/security-feedback-list.component';
+
+
 
 export const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -112,6 +115,9 @@ export const routes: Routes = [
     component: SecurityAccessControlListComponent,
   },
   { path: '', redirectTo: 'security-access-control-list', pathMatch: 'full' },
+
+  { path: 'security-feedback-list', component: SecurityFeedbackListComponent },
+  { path: '', redirectTo: 'security-feedback-list', pathMatch: 'full' },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)], // Use RouterModule.forRoot for root module

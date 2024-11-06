@@ -25,4 +25,9 @@ export class SecurityDashboardComponent {
   navigateToSecurityDashboard() {
     this.router.navigate(['/security-dashboard']);
   }
+
+  navigateToFeedbackForm() {
+    this.router.navigate(['/security-feedback-list']);
+  }
+
 }

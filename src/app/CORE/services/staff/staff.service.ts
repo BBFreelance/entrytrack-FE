@@ -40,4 +40,9 @@ export class StaffService {
   createFeedback(feedbackData:FeedbackData): Observable<Feedback[]> {
     return this.httpClient.post<Feedback[]>(`${config.SERVER_API_ENDPOINT}/feedback`, feedbackData, jsonHeaders );
   }
+
+  getFeedbackAll(): Observable<Feedback[]> {
+    return this.httpClient.get<Feedback[]>(`${config.SERVER_API_ENDPOINT}/feedback`);
+  }
+  
 }

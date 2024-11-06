@@ -16,15 +16,18 @@ export interface Feedback {
   date_submitted: Date; // Date when the feedback was submitted
 }
 
+
 @Component({
   selector: 'app-feedback-list',
   standalone: true,
   imports: [CommonModule, HttpClientModule],
-  templateUrl: './feedback-list.component.html',
-  styleUrls: ['./feedback-list.component.css'],
+  templateUrl: './security-feedback-list.component.html',
+  styleUrls: ['./security-feedback-list.component.css'],
   providers: [StaffService],
 })
-export class FeedbackListComponent {
+
+export class SecurityFeedbackListComponent {
+
   userData?: Users;
   feedbackList: FeedbackData[] = [];
   isLoading: boolean = true;
