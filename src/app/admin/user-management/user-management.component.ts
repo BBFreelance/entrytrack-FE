@@ -1,6 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { getUserSession } from '../../HELPER/user-service';
+import { Users } from '../../CORE/models/users/users.model';
+import { AdminService } from '../../CORE/services/admin/admin.service';
+import { HttpClientModule } from '@angular/common/http';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 interface User {
@@ -13,43 +18,58 @@ interface User {
 @Component({
   selector: 'app-user-management',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HttpClientModule],
   templateUrl: './user-management.component.html',
-  styleUrls: ['./user-management.component.css']
+  styleUrls: ['./user-management.component.css'],
+  providers: [AdminService],
 })
 export class UserManagementComponent {
-  users: User[] = [
-    { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Admin' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'User' },
-    { id: 3, name: 'Alice Johnson', email: 'alice@example.com', role: 'User' },
-    // Add more users here for demonstration
-    { id: 4, name: 'Bob Brown', email: 'bob@example.com', role: 'User' },
-    { id: 5, name: 'Charlie Davis', email: 'charlie@example.com', role: 'Admin' },
-    { id: 6, name: 'Diana Green', email: 'diana@example.com', role: 'User' },
-    { id: 7, name: 'Evan White', email: 'evan@example.com', role: 'User' },
-    { id: 8, name: 'Fiona Black', email: 'fiona@example.com', role: 'User' },
-    { id: 9, name: 'George Blue', email: 'george@example.com', role: 'Admin' },
-    { id: 10, name: 'Hannah Yellow', email: 'hannah@example.com', role: 'User' },
-  ];
+userData?: Users;
+users: User[] = [];
+paginatedUsers: User[] = [];
+isLoading: boolean = true;
 
-  currentPage: number = 1;
-  itemsPerPage: number = 5; // Number of users per page
-  totalPages: number = Math.ceil(this.users.length / this.itemsPerPage); // Calculate total pages
-  paginatedUsers: User[] = [];
-  pageNumbers: number[] = []; // Array to hold page numbers
+currentPage: number = 1;
+itemsPerPage: number = 5;
+totalPages: number = 0;
+pageNumbers: number[] = [];
 
-  constructor(private router: Router) {
-    this.loadUsers();
-    // Load users for the current page
-  }
+constructor(private router: Router, private adminService: AdminService, private cd: ChangeDetectorRef) {}
+ngOnInit(): void {
+  this.userData = getUserSession();
+  this.getAllUsers();
+  console.log('User session loaded');
+}
 
-  loadUsers(): void {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    this.paginatedUsers = this.users.slice(startIndex, endIndex); // Slice users for the current page
-    this.pageNumbers = Array.from({ length: this.totalPages }, (_, i) => i + 1); // Generate page numbers
-  }
+getAllUsers(): void {
+  this.adminService.getAllUsers().subscribe(
+    (response: Users[]) => {
+      this.users = response; // Directly assign the response to `users`
+      this.totalPages = Math.ceil(this.users.length / this.itemsPerPage);
+      this.loadUsers();
+      this.isLoading = false;
+    },
+    (error) => {
+      console.error('Error fetching user list:', error);
+      this.isLoading = false;
+    }
+  );
+}
 
+
+loadUsers(): void {
+  const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  const endIndex = startIndex + this.itemsPerPage;
+  this.paginatedUsers = this.users.slice(startIndex, endIndex);
+  console.log('Current paginated users:', this.paginatedUsers); // Log for testing
+  this.pageNumbers = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+}
+
+
+changePage(page: number): void {
+  this.currentPage = page;
+  this.loadUsers();
+}
   // Method to create a new user (this could also open a modal)
   createUser(): void {
     console.log('Create new user logic goes here');
@@ -57,16 +77,31 @@ export class UserManagementComponent {
     // Implement your logic for creating a new user here, e.g., opening a modal
   }
 
-  editUser(id: number): void {
-    console.log('Edit user with ID:', id);
-    // Implement logic to edit the user
+  updateUser(id: number): void {
+    // Navigate to the user update page with the user's ID as a route parameter
+    this.router.navigate(['/user-update', id]); // This will navigate to /user-update/123 (example)
   }
-
+  
   deleteUser(id: number): void {
-    this.users = this.users.filter(user => user.id !== id);
-    this.totalPages = Math.ceil(this.users.length / this.itemsPerPage); // Recalculate total pages
-    this.loadUsers(); // Reload users for the current page
+    const confirmed = confirm('Are you sure you want to delete this user?');
+    if (confirmed) {
+      this.adminService.deleteUserById(id).subscribe(
+        () => {
+          // Remove user from the local list
+          this.users = this.users.filter(user => user.id !== id);
+          this.totalPages = Math.ceil(this.users.length / this.itemsPerPage); // Recalculate total pages
+          this.loadUsers(); // Reload users for the current page
+          alert('User deleted successfully.');
+        },
+        (error) => {
+          console.error('Error deleting user:', error);
+          alert('Failed to delete user. Please try again.');
+        }
+      );
+    }
   }
+  
+  
 
   previousPage(): void {
     if (this.currentPage > 1) {

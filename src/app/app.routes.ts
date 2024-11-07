@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { UserCreateComponent } from './admin/user-create/user-create.component';
+import { UserUpdateComponent } from './admin/user-update/user-update.component';
 import { ProfileComponent } from './profile/profile/profile.component';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
@@ -43,6 +44,10 @@ export const routes: Routes = [
 
   { path: 'user-management', component: UserManagementComponent },
   { path: '', redirectTo: '/user-management', pathMatch: 'full' },
+
+  { path: 'user-update/:id', component: UserUpdateComponent },
+  { path: '', redirectTo: '/user-update', pathMatch: 'full' },
+
 
   { path: 'user-create', component: UserCreateComponent },
   { path: '', redirectTo: '/user-create', pathMatch: 'full' },

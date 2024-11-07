@@ -29,7 +29,19 @@ export class AdminService {
     return this.httpClient.get<Users[]>(`${config.SERVER_API_ENDPOINT}/users`);
   }
 
-  deleteUserById(userId: string): Observable<any> {
-    return this.httpClient.get<Users[]>(`${config.SERVER_API_ENDPOINT}/users`);  }
+  deleteUserById(id: number): Observable<any> {
+  return this.httpClient.delete(`${config.SERVER_API_ENDPOINT}/users/${id}`);
+  }
+
+  updateUser(userData: Users): Observable<Users> {
+    return this.httpClient.put<Users>(`${config.SERVER_API_ENDPOINT}/users/${userData.id}`, userData);
+  }
+  
+  
+
+  getUserById(id: number): Observable<Users> {
+    return this.httpClient.get<Users>(`${config.SERVER_API_ENDPOINT}/user/${id}`);
+  }
+  
 
 }

@@ -24,36 +24,41 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let user of paginatedUsers" class="hover:bg-gray-100 border-b-0">
-                            <td class="text-black border-b-0">{{ user.id }}</td>
-                            <td class="text-black border-b-0">{{ user.name }}</td>
-                            <td class="text-black border-b-0">{{ user.email }}</td>
-                            <td class="text-black border-b-0">{{ user.role }}</td>
-                            <td class="space-x-1 border-b-0"> <!-- Adjust spacing between buttons -->
-                                <button class="btn btn-sm bg-blue-600 text-white border-0" (click)="editUser(user.id)">Edit</button>
-                                <button class="btn btn-sm bg-red-600 text-white border-0" (click)="deleteUser(user.id)">Delete</button>
-                            </td>
+                          <td class="text-black border-b-0">{{ user.id }}</td>
+                          <td class="text-black border-b-0">{{ user.name }}</td>
+                          <td class="text-black border-b-0">{{ user.email }}</td>
+                          <td class="text-black border-b-0">{{ user.role }}</td>
+                          <td class="space-x-1 border-b-0">
+                            <button class="btn btn-sm bg-blue-600 text-white border-0" (click)="updateUser(user.id)">Edit</button>
+                            <button class="btn btn-sm bg-red-600 text-white border-0" (click)="deleteUser(user.id)">Delete</button>
+                        </td>
                         </tr>
-                    </tbody>
+                      </tbody>
+                      <ng-template #noData>
+                        <tr><td colspan="5" class="text-center text-black">No Users Found</td></tr>
+                      </ng-template>
+                      
                 </table>
             </div>
         </div>
         
         <!-- Pagination Buttons -->
-  <div class="flex justify-between items-center mt-4">
-    <button 
-        (click)="currentPage = currentPage - 1" 
-        [disabled]="currentPage === 1"
-        class="btn btn-sm bg-black text-white border-0 hover:bg-gray-800 transition duration-200"
-    >
-        Previous
-    </button>
-    <span class="text-black">Page {{ currentPage }} of {{ totalPages }}</span>
-    <button 
-        (click)="currentPage = currentPage + 1" 
-        [disabled]="currentPage === totalPages"
-        class="btn btn-sm bg-black text-white border-0 hover:bg-gray-800 transition duration-200"
-    >
-        Next
-    </button>
-</div>
+        <div class="flex justify-between items-center mt-4">
+            <button 
+                (click)="previousPage()" 
+                [disabled]="currentPage === 1"
+                class="btn btn-sm bg-black text-white border-0 hover:bg-gray-800 transition duration-200"
+            >
+                Previous
+            </button>
+            <span class="text-black">Page {{ currentPage }} of {{ totalPages }}</span>
+            <button 
+                (click)="nextPage()" 
+                [disabled]="currentPage === totalPages"
+                class="btn btn-sm bg-black text-white border-0 hover:bg-gray-800 transition duration-200"
+            >
+                Next
+            </button>
+        </div>
+        
 </div>
