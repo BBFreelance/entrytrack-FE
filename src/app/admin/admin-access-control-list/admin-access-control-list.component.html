@@ -8,6 +8,7 @@
       Add Permission
   </button>
 
+  <!-- Form to Add New Entry -->
   <div *ngIf="showForm" class="mb-6">
       <h3 class="text-xl font-semibold text-black">Add New ACL Entry</h3>
       <div class="mb-4">
@@ -45,7 +46,7 @@
           <table class="table w-full bg-white text-black">
               <thead>
                   <tr>
-                      <th class="text-black">ACL ID</th>
+                      <th class="text-black">Name</th>
                       <th class="text-black">User ID</th>
                       <th class="text-black">Resource</th>
                       <th class="text-black">Permission</th>
@@ -53,8 +54,20 @@
                   </tr>
               </thead>
               <tbody>
+                  <!-- Loading Row -->
+                  <tr *ngIf="loading">
+                      <td colspan="5" class="text-center py-4">
+                          <div class="flex justify-center items-center space-x-2">
+                              <div class="spinner-border animate-spin inline-block w-6 h-6 border-4 border-t-transparent rounded-full"></div>
+                              <span class="text-black">Loading data...</span>
+                          </div>
+                      </td>
+                  </tr>
+
+                  <!-- Display Data Rows -->
                   <tr *ngFor="let entry of paginatedEntries" style="border: none;">
-                      <td class="text-black">{{ entry.acl_id }}</td>
+                      <!-- <td class="text-black">{{ entry.acl_id }}</td> -->
+                      <td class="text-black">{{ entry.user?.name }}</td>
                       <td class="text-black">{{ entry.user_id }}</td>
                       <td class="text-black">{{ entry.resource }}</td>
                       <td class="text-black">{{ entry.permission }}</td>
@@ -72,7 +85,7 @@
   </div>
 
   <!-- Pagination Buttons -->
-  <div class="flex justify-between items-center mt-4">
+  <div *ngIf="!loading" class="flex justify-between items-center mt-4">
       <button 
           (click)="currentPage = currentPage - 1" 
           [disabled]="currentPage === 1"

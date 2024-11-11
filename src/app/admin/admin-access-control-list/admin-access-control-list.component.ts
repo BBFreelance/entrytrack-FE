@@ -1,35 +1,51 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { CommonModule } from '@angular/common';
+import { AdminService } from '../../CORE/services/admin/admin.service';
+import { HttpClientModule } from '@angular/common/http';
+import { AccessControlEntry } from '../../CORE/models/access-control/access-control';
 
-interface AccessControlEntry {
-  acl_id: number;
-  user_id: number;
-  resource: string;
-  permission: string;
-}
+// interface AccessControlEntry {
+//   acl_id: number;
+//   user_id: number;
+//   resource: string;
+//   permission: string;
+// }
 
 @Component({
   selector: 'app-admin-access-control-list',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, HttpClientModule],
   templateUrl: './admin-access-control-list.component.html',
   styleUrls: ['./admin-access-control-list.component.css'],
+  providers: [AdminService],
 })
-export class AdminAccessControlListComponent  {
-  aclEntries: AccessControlEntry[] = [
-    { acl_id: 1, user_id: 1, resource: 'Feedback', permission: 'Read' },
-    { acl_id: 2, user_id: 2, resource: 'Staff Record', permission: 'Write' },
-    { acl_id: 3, user_id: 3, resource: 'Edit Profile', permission: 'Edit' },
-    // Add more entries for testing pagination
-    { acl_id: 4, user_id: 4, resource: 'Settings', permission: 'Write' },
-    { acl_id: 5, user_id: 5, resource: 'Reports', permission: 'Read' },
-    { acl_id: 6, user_id: 6, resource: 'User Management', permission: 'Edit' },
-    { acl_id: 7, user_id: 7, resource: 'Admin Panel', permission: 'Write' },
-    { acl_id: 8, user_id: 8, resource: 'Dashboard', permission: 'Read' },
-    { acl_id: 9, user_id: 9, resource: 'Logs', permission: 'Read' },
-    { acl_id: 10, user_id: 10, resource: 'Support', permission: 'Edit' },
-  ];
+export class AdminAccessControlListComponent implements OnInit  {
+  aclEntries: AccessControlEntry[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
+  showForm: boolean = false; // Track form visibility
+  loading: boolean = false; // Loading state
+
+  constructor(private adminService: AdminService) {}
+
+  ngOnInit(): void {
+    this.fetchAclEntries();
+  }
+
+  fetchAclEntries(): void {
+    this.loading = true;
+    this.adminService.getAccessControlList().subscribe(
+      (data) => {
+        this.aclEntries = data;
+        this.loading = false;
+      },
+      (error) => {
+        console.error('Error fetching ACL entries:', error);
+        this.loading = false;
+      }
+    );
+  }
 
   newEntry: AccessControlEntry = {
     acl_id: 0,
@@ -37,10 +53,6 @@ export class AdminAccessControlListComponent  {
     resource: '',
     permission: '',
   };
-
-  showForm: boolean = false; // Track form visibility
-  currentPage: number = 1; // Current page for pagination
-  itemsPerPage: number = 5; // Number of items per page
 
   toggleForm() {
     this.showForm = !this.showForm; // Toggle form visibility

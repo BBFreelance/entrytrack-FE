@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { config } from '../../../config';
 import { Users } from '../../models/users/users.model';
 import { jsonHeaders } from '../../http-headers';
+import { AccessControlEntry } from '../../models/access-control/access-control';
 
 
 // Define a User data type for TypeScript to understand the expected structure of the user data.
@@ -36,12 +37,13 @@ export class AdminService {
   updateUser(userData: Users): Observable<Users> {
     return this.httpClient.put<Users>(`${config.SERVER_API_ENDPOINT}/users/${userData.id}`, userData);
   }
-  
-  
 
   getUserById(id: number): Observable<Users> {
     return this.httpClient.get<Users>(`${config.SERVER_API_ENDPOINT}/user/${id}`);
   }
-  
+
+  getAccessControlList(): Observable<AccessControlEntry[]> {
+    return this.httpClient.get<AccessControlEntry[]>(`${config.SERVER_API_ENDPOINT}/access-control-lists`);
+  }
 
 }
