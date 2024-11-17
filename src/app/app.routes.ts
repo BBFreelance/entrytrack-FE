@@ -29,14 +29,14 @@ import { SecurityAccessControlListComponent } from './security/security-access-c
 import { IndexComponent } from './index/index.component';
 import { SecurityFeedbackListComponent } from './security/security-feedback-list/security-feedback-list.component';
 import { SecQrCodeGeneratorComponent } from './security/sec-qr-code-generator/sec-qr-code-generator.component';
-
+import { CanDeactivateGuard } from './guards/can-deactivate.guard';
 
 
 export const routes: Routes = [
   { path: '', component: IndexComponent },
 
   //admin
-  { path: 'security/qr-code-generator', component: SecQrCodeGeneratorComponent },
+  { path: 'security/qr-code-generator', component: SecQrCodeGeneratorComponent, canDeactivate: [CanDeactivateGuard], },
   { path: '', redirectTo: 'security/qr-code-generator', pathMatch: 'full' },
 
   { path: 'admin-login', component: AdminLoginComponent },

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { QRCodeModule } from 'angularx-qrcode'; // Import the QRCodeModule here if you're using it inside this component
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // For using [(ngModel)]
@@ -23,7 +23,7 @@ export class SecQrCodeGeneratorComponent {
   qrInterval: Subscription | null = null; // Subscription to manage the interval
   baseUrl: string = 'https://entry-api-c3851cedfc0d.herokuapp.com/api'; // Replace with your API base URL
   is_loading: boolean = false;
-
+  isExitConfirmed: boolean = false; // To track user confirmation
   constructor(private http: HttpClient) {}
 
   // Start generating the QR code
@@ -122,6 +122,23 @@ export class SecQrCodeGeneratorComponent {
       59
     );
     return endOfDay.toISOString().slice(0, 19).replace('T', ' '); // Format to 'YYYY-MM-DD HH:mm:ss'
+  }
+
+  // Listen to the browser/tab close or refresh event
+  @HostListener('window:beforeunload', ['$event'])
+  onBeforeUnload(event: BeforeUnloadEvent): void {
+    if (this.qrActive && !this.isExitConfirmed) {
+      event.preventDefault();
+      event.returnValue = ''; // This triggers the browser's confirmation dialog
+    }
+  }
+
+  // Confirm before navigating away from the component
+  canDeactivate(): boolean {
+    if (this.qrActive && !this.isExitConfirmed) {
+      return confirm('Are you sure you want to exit? This will generate a new QR code.');
+    }
+    return true;
   }
 
   // Clean up the interval on component destruction
