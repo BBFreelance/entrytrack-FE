@@ -28,6 +28,7 @@ import { SecurityTrackEntryLogComponent } from './security/security-track-entry-
 import { SecurityAccessControlListComponent } from './security/security-access-control-list/security-access-control-list.component';
 import { IndexComponent } from './index/index.component';
 import { SecurityFeedbackListComponent } from './security/security-feedback-list/security-feedback-list.component';
+import { SecQrCodeGeneratorComponent } from './security/sec-qr-code-generator/sec-qr-code-generator.component';
 
 
 
@@ -35,6 +36,8 @@ export const routes: Routes = [
   { path: '', component: IndexComponent },
 
   //admin
+  { path: 'security/qr-code-generator', component: SecQrCodeGeneratorComponent },
+  { path: '', redirectTo: 'security/qr-code-generator', pathMatch: 'full' },
 
   { path: 'admin-login', component: AdminLoginComponent },
   { path: '', redirectTo: 'admin-login', pathMatch: 'full' },

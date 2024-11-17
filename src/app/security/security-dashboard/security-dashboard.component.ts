@@ -30,4 +30,8 @@ export class SecurityDashboardComponent {
     this.router.navigate(['/security-feedback-list']);
   }
 
+  navigateToScanQRCode() {
+    this.router.navigate(['/security/qr-code-generator']);
+  }
+
 }

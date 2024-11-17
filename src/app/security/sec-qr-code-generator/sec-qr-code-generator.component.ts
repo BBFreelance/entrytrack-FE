@@ -10,13 +10,13 @@ import {
 } from '@angular/common/http';
 
 @Component({
-  selector: 'app-qr-code-generator',
-  standalone: true, // Mark the component as standalone
-  templateUrl: './qr-code-generator.component.html',
-  styleUrls: ['./qr-code-generator.component.css'],
+  selector: 'app-sec-qr-code-generator',
+  standalone: true,
+  templateUrl: './sec-qr-code-generator.component.html',
+  styleUrl: './sec-qr-code-generator.component.css',
   imports: [QRCodeModule, CommonModule, FormsModule, HttpClientModule], // Import modules needed for this component
 })
-export class QrCodeGeneratorComponent {
+export class SecQrCodeGeneratorComponent {
   qrData: string = ''; // Holds the dynamic QR code data
   qrImage: string = ''; // Holds the QR code image URL
   qrActive: boolean = false; // Indicates if QR generation is active

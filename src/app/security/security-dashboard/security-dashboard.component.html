@@ -1,38 +1,64 @@
 <div class="container mx-auto p-4 bg-white">
-    <!-- Header -->
-    <header class="bg-white p-4 shadow-md text-gray-800 text-center">
-      <h1 class="text-3xl font-bold">Security Dashboard</h1>
-      <p class="mt-2 text-lg">Manage your application settings and data efficiently</p>
-    </header>
-  
-    <!-- Main Content Area -->
-    <div class="flex-grow p-6">
-      <h2 class="text-2xl font-semibold mb-4 text-gray-800">Welcome to the Security Dashboard</h2>
-  
-      <!-- Dashboard Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    
-        <div class="card bg-white shadow-lg rounded-lg p-4">
-          <h3 class="text-xl font-semibold mb-2">Feedback</h3>
-          <p class="text-3xl font-bold text-yellow-600">25</p>
-          <button (click)="navigateToFeedbackForm()" class="mt-4 btn btn-yellow btn-outline">View Feedback</button>
+  <!-- Header -->
+  <header class="bg-white p-4 shadow-md text-gray-800 text-center">
+    <h1 class="text-3xl font-bold">Security Dashboard</h1>
+    <p class="mt-2 text-lg">
+      Manage your application settings and data efficiently
+    </p>
+  </header>
 
-        </div>
-  
-    
-        <div class="card bg-white shadow-lg rounded-lg p-4">
-          <h3 class="text-xl font-semibold mb-2">Entry Log</h3>
-          <p class="text-3xl font-bold text-purple-600">View</p>
-          <button (click)="navigateToEntryLog()" class="mt-4 btn btn-purple btn-outline">View Entry Log</button>
-        </div>
+  <!-- Main Content Area -->
+  <div class="flex-grow p-6">
+    <h2 class="text-2xl font-semibold mb-4 text-gray-800">
+      Welcome to the Security Dashboard
+    </h2>
 
-        <div class="card bg-white shadow-lg rounded-lg p-4">
-        <h3 class="text-xl font-semibold mb-2">Access Control</h3>
-        <p class="text-3xl font-bold text-green-600">Manage</p>
-        <button (click)="navigateToACL()" class="mt-4 btn btn-purple btn-outline">Access Control List</button>
+    <!-- Dashboard Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="card bg-white shadow-lg rounded-lg p-4">
+        <h3 class="text-xl font-semibold mb-2">Feedback</h3>
+        <p class="text-3xl font-bold text-yellow-600">View</p>
+        <button
+          (click)="navigateToFeedbackForm()"
+          class="mt-4 btn btn-yellow btn-outline"
+        >
+          View Feedback
+        </button>
       </div>
 
+      <div class="card bg-white shadow-lg rounded-lg p-4">
+        <h3 class="text-xl font-semibold mb-2">Entry Log</h3>
+        <p class="text-3xl font-bold text-purple-600">View</p>
+        <button
+          (click)="navigateToEntryLog()"
+          class="mt-4 btn btn-purple btn-outline"
+        >
+          View Entry Log
+        </button>
+      </div>
+
+      <div class="card bg-white shadow-lg rounded-lg p-4">
+        <h3 class="text-xl font-semibold mb-2">Access Control</h3>
+        <p class="text-3xl font-bold text-green-600">Manage</p>
+        <button
+          (click)="navigateToACL()"
+          class="mt-4 btn btn-purple btn-outline"
+        >
+          Access Control List
+        </button>
+      </div>
+
+      <!-- QR Code Card -->
+      <div class="card bg-white shadow-lg rounded-lg p-4">
+        <h3 class="text-xl font-semibold mb-2">QR code</h3>
+        <p class="text-3xl font-bold text-green-600">Scan</p>
+        <button
+          (click)="navigateToScanQRCode()"
+          class="mt-4 btn btn-green btn-outline"
+        >
+          View QR Code
+        </button>
       </div>
     </div>
   </div>
-  
+</div>

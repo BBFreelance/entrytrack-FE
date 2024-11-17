@@ -34,12 +34,17 @@
           </div>
           <div class="mt-6">
             <button
-              type="button"
-              (click)="login()"
-              class="w-full h-12 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-all duration-200"
-            >
-              Login
-            </button>
+            type="button"
+            (click)="login()"
+            class="w-full h-12 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-all duration-200"
+          >
+            <span *ngIf="isLoading">
+              <div class="flex justify-center items-center w-full">
+                <span class="loading loading-spinner loading-xs"></span>
+              </div>
+            </span>
+            <span *ngIf="!isLoading"> Login </span>
+          </button>
           </div>
         </form>
     </div>

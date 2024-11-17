@@ -20,10 +20,12 @@ export class SecurityLoginComponent {
   password: string = '';
   errorMessage: string = '';
   userData?: Users;
+  isLoading: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) {}
 
   login() {
+    this.isLoading = true;
     // Call the login service
     this.authService.login(this.email, this.password).subscribe({
       next: (response: LoginResponse) => {
@@ -40,12 +42,15 @@ export class SecurityLoginComponent {
               staff_id:  this.userData?.staff_id,
               role:  this.userData?.role
             }));
+            this.isLoading = false;
             this.router.navigate(['/security-dashboard']);
           }else {
+            this.isLoading = false;
             alert('You\'re not security');
           }
          
         } else {
+          this.isLoading = false;
           // Show alert for invalid email or password
           alert(response.message || 'Invalid email or password');
         }
@@ -53,8 +58,10 @@ export class SecurityLoginComponent {
       error: (error) => {
         console.error('Login error:', error); // Log the error
         if (error.status === 401) {
+          this.isLoading = false;
           alert('Invalid email or password');
         } else {
+          this.isLoading = false;
           this.errorMessage = 'Login failed. Please try again later.';
         }
       },
