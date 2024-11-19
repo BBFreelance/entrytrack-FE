@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router'; 
+import { NavbarComponent } from '../../navbar/navbar.component';
 
 export interface SystemSetting {
   setting_id: number;
@@ -13,7 +14,7 @@ export interface SystemSetting {
 @Component({
   selector: 'app-system-settings',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NavbarComponent],
   templateUrl: './system-settings.component.html',
   styleUrls: ['./system-settings.component.css'], // Optional: Add styles
 })
