@@ -6,11 +6,13 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginResponse } from '../../CORE/models/login-response/login-response.model';
+import { NavbarComponent } from '../../navbar/navbar.component';
+
 
 @Component({
   selector: 'app-security-login',
   standalone: true,
-  imports: [FormsModule, CommonModule, HttpClientModule],
+  imports: [FormsModule, CommonModule, HttpClientModule,NavbarComponent],
   templateUrl: './security-login.component.html',
   styleUrl: './security-login.component.css',
   providers: [AuthService]

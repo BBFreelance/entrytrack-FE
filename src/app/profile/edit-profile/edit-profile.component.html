@@ -1,86 +1,70 @@
-<div class="flex justify-center items-center h-screen bg-white">
-  <div class="card w-full max-w-lg bg-white shadow-xl">
-    <div class="card-body">
-      <h2 class="card-title text-center text-black">Edit Profile</h2>
+<app-navbar></app-navbar> <!-- This will render the Navbar -->
 
-      <form (ngSubmit)="onUpdateProfile()">
-        <!-- Profile Picture -->
-        <div class="flex justify-center mb-4">
-          <div class="avatar">
-            <div class="w-24 rounded-full">
-              <img
-                src="https://i.pravatar.cc/150?img=32"
-                alt="Profile Picture"
-              />
+<div class="h-screen flex flex-col items-center justify-center bg-white overflow-hidden">
+  <div class="w-full max-w-lg shadow-md rounded-lg bg-white p-8 border border-black">
+    <h2 class="text-center text-2xl font-semibold mb-6 text-gray-800">
+      Edit Profile
+    </h2>
+    <form (ngSubmit)="onUpdateProfile()">
+      <!-- Name Input -->
+      <div class="mb-6">
+        <label
+          class="block text-base font-medium text-gray-700 mb-1"
+          for="name"
+        >
+          Name
+        </label>
+        <input
+          type="text"
+          id="name"
+          [(ngModel)]="user.name"
+          name="name"
+          class="w-full h-12 px-4 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
+          required
+          placeholder="Enter your name"
+        />
+      </div>
+
+      <!-- Email Input -->
+      <div class="mb-6">
+        <label
+          class="block text-base font-medium text-gray-700 mb-1"
+          for="email"
+        >
+          Email
+        </label>
+        <input
+          type="email"
+          id="email"
+          [(ngModel)]="user.email"
+          name="email"
+          class="w-full h-12 px-4 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
+          required
+          placeholder="email@example.com"
+        />
+      </div>
+
+      <!-- Button Group (Cancel & Save Changes) -->
+      <div class="flex justify-between gap-4 mt-6">
+        <button
+          type="button"
+          (click)="cancel()"
+          class="w-full h-12 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition-all duration-200"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="w-full h-12 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-all duration-200"
+        >
+          <span *ngIf="is_loading">
+            <div class="flex justify-center items-center w-full">
+              <span class="loading loading-spinner loading-xs"></span>
             </div>
-          </div>
-        </div>
-
-        <!-- Profile Picture Upload -->
-        <!-- <div class="form-control mb-4">
-                  <label class="label">
-                      <span class="label-text">Upload New Picture</span>
-                  </label>
-                  <input 
-                      type="file" 
-                      (change)="onFileSelected($event)" 
-                      accept="image/*" 
-                      class="input input-bordered bg-white text-black" 
-                  />
-              </div> -->
-
-        <!-- Name Input -->
-        <div class="form-control mb-4">
-          <label class="label">
-            <span class="label-text">Name</span>
-          </label>
-          <input
-            type="text"
-            [(ngModel)]="user.name"
-            name="name"
-            class="input input-bordered bg-white text-black"
-            required
-          />
-        </div>
-
-        <!-- Email Input -->
-        <div class="form-control mb-4">
-          <label class="label">
-            <span class="label-text">Email</span>
-          </label>
-          <input
-            type="email"
-            [(ngModel)]="user.email"
-            name="email"
-            class="input input-bordered bg-white text-black"
-            required
-          />
-        </div>
-
-        <!-- Button Group (Cancel & Save Changes) -->
-        <div class="form-control mt-6 flex justify-between">
-          <button
-            type="button"
-            (click)="cancel()"
-            class="btn btn-secondary bg-red-500 hover:bg-red-600 text-white"
-          >
-            Cancel
-          </button>
-        </div>
-        <div class="form-control mt-6 flex justify-between">
-          <button
-            type="submit"
-            class="btn btn-primary bg-blue-500 hover:bg-blue-600 text-white"
-          >
-            <div *ngIf="is_loading">
-              <div class="flex justify-center">
-                <span class="loading loading-spinner loading-xs"></span>
-              </div>
-            </div>
-            <div *ngIf="!is_loading">Save Changes</div>
-          </button>
-        </div>
-      </form>
-    </div>
+          </span>
+          <span *ngIf="!is_loading">Save Changes</span>
+        </button>
+      </div>
+    </form>
   </div>
 </div>

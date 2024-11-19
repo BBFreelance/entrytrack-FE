@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AdminService } from '../../CORE/services/admin/admin.service';
 import { FormsModule } from '@angular/forms'; // Import FormsModule for two-way data binding
 import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule for HTTP requests
+import { NavbarComponent } from '../../navbar/navbar.component';
+
 
 interface User {
   id: number;
@@ -15,7 +17,7 @@ interface User {
 @Component({
   selector: 'app-user-create',
   standalone: true,
-  imports: [FormsModule, HttpClientModule], // Include FormsModule and HttpClientModule
+  imports: [FormsModule, HttpClientModule,NavbarComponent], // Include FormsModule and HttpClientModule
   templateUrl: './user-create.component.html',
   styleUrls: ['./user-create.component.css'],
   providers: [AdminService],

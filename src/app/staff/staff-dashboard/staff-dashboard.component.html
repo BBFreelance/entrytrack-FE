@@ -1,44 +1,41 @@
-<div class="container mx-auto p-4 bg-white">
+<app-navbar></app-navbar> <!-- This will render the Navbar -->
+
+<div class="container mx-auto p-4 bg-white min-h-screen text-black">
   <!-- Header -->
-  <header class="bg-white p-4 shadow-md text-gray-800 text-center">
-    <h1 class="text-3xl font-bold">Staff Dashboard</h1>
-    <p class="mt-2 text-lg">Manage your application settings and data efficiently</p>
+  <header class="text-center py-8">
+    <h1 class="text-3xl font-bold mb-4">Staff Dashboard</h1>
+    <p class="text-lg text-gray-700">Manage your application settings and data efficiently</p>
   </header>
 
   <!-- Main Content Area -->
   <div class="flex-grow p-6">
-    <h2 class="text-2xl font-semibold mb-4 text-gray-800">Welcome to the Staff Dashboard</h2>
+    <h2 class="text-2xl font-semibold mb-8 text-black text-center">Welcome to the Staff Dashboard</h2>
 
     <!-- Dashboard Cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    
-
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center items-center">
+      
       <!-- Feedback Card -->
-      <div class="card bg-white shadow-lg rounded-lg p-4">
+      <div class="card p-6 border border-black bg-white text-center rounded-lg shadow hover:bg-gray-100">
         <h3 class="text-xl font-semibold mb-2">Feedback</h3>
-        <p class="text-3xl font-bold text-yellow-600">View</p>
-        <button (click)="navigateToFeedbackForm()" class="mt-4 btn btn-yellow btn-outline">View Feedback</button>
+        <button (click)="navigateToFeedbackForm()" class="mt-4 btn w-full bg-white text-black border border-black hover:bg-gray-200">
+          View Feedback
+        </button>
       </div>
 
-
-      <div class="card bg-white shadow-lg rounded-lg p-4">
+      <!-- Entry Log Card -->
+      <div class="card p-6 border border-black bg-white text-center rounded-lg shadow hover:bg-gray-100">
         <h3 class="text-xl font-semibold mb-2">Entry Log</h3>
-        <p class="text-3xl font-bold text-purple-600">View</p>
-        <button (click)="navigateToEntryLog()" class="mt-4 btn btn-purple btn-outline">View Entry Log</button>
+        <button (click)="navigateToEntryLog()" class="mt-4 btn w-full bg-white text-black border border-black hover:bg-gray-200">
+          View Entry Log
+        </button>
       </div>
 
-      <!-- QR Code Card -->
-      <!-- <div class="card bg-white shadow-lg rounded-lg p-4">
-        <h3 class="text-xl font-semibold mb-2">QR code</h3>
-        <p class="text-3xl font-bold text-green-600">Scan</p>
-        <button (click)="navigateToScanQRCode()" class="mt-4 btn btn-green btn-outline">View QR Code</button>
-      </div> -->
-
-      <!-- My Profile -->
-      <div class="card bg-white shadow-lg rounded-lg p-4">
+      <!-- My Profile Card -->
+      <div class="card p-6 border border-black bg-white text-center rounded-lg shadow hover:bg-gray-100">
         <h3 class="text-xl font-semibold mb-2">My Profile</h3>
-        <p class="text-3xl font-bold text-green-600">Profile</p>
-        <button (click)="navigateToProfile()" class="mt-4 btn btn-green btn-outline">View My Profile</button>
+        <button (click)="navigateToProfile()" class="mt-4 btn w-full bg-white text-black border border-black hover:bg-gray-200">
+          View My Profile
+        </button>
       </div>
     </div>
   </div>

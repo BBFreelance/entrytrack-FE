@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { NavbarComponent } from '../../navbar/navbar.component';
+
 
 @Component({
   selector: 'app-staff-dashboard',
   standalone: true,
-  imports: [],
+  imports: [NavbarComponent],
   templateUrl: './staff-dashboard.component.html',
   styleUrl: './staff-dashboard.component.css',
 })

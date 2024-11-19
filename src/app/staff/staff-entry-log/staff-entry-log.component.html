@@ -1,55 +1,79 @@
-<div class="container mx-auto p-4">
-  <h2 class="text-2xl font-bold mb-4 text-black">Staff Entry Log Records</h2>
+<app-navbar></app-navbar> <!-- Navbar Component -->
 
- 
+<div class="container mx-auto mt-8 p-6">
+  <!-- Page Heading -->
+  <h2 class="text-3xl font-semibold mb-8 text-center text-gray-800">Staff Entry Log Records</h2>
 
-  <!-- Table of Entry Logs -->
-  <div class="bg-white shadow-lg rounded-lg p-6">
-      <div class="overflow-x-auto">
-          <table class="table w-full text-black border-collapse">
-              <!-- Table Head -->
-              <thead>
-                  <tr>
-                      <th class="text-black">Log ID</th>
-                      <th class="text-black">User ID</th>
-                      <th class="text-black">Staff ID</th>
-                      <th class="text-black">Entry Time</th>
-                      <th class="text-black">Exit Time</th>
-                  </tr>
-              </thead>
-              <!-- Table Body -->
-              <tbody>
-                <tr *ngIf="isLoading" class="hover:bg-gray-100 border-b-0">
-                  <td colspan="5" class="text-center">
-                    <!-- Spinner from DaisyUI -->
-                    <div class="flex justify-center">
-                      <span class="loading loading-spinner loading-xs"></span>
-                    </div>
-                    <p class="mt-2">Loading...</p>
-                  </td>
-                </tr>
-                <ng-container *ngIf="!isLoading">
-                  <ng-container *ngIf="paginatedEntryLogs.length === 0; else logsTable">
-                    <tr class="hover:bg-gray-100 border-b-0">
-                      <td colspan="5" class="text-center">No entry logs available.</td>
-                    </tr>
-                  </ng-container>
-                  <ng-template #logsTable>
-                    <tr *ngFor="let log of paginatedEntryLogs" class="hover:bg-gray-100 border-b-0">
-                      <td class="border-b-0">{{ log.log_id }}</td> <!-- Access log_id directly -->
-                      <td class="border-b-0">{{ log.user_id }}</td> <!-- Access user_id directly -->
-                      <td class="border-b-0">{{ log.staff_id }}</td> <!-- Access staff_id directly -->
-                      <td class="border-b-0">{{ log.entry_time }}</td> <!-- Access entry_time directly -->
-                      <td class="border-b-0">{{ log.exit_time }}</td> <!-- Access exit_time directly -->
-                    </tr>
-                  </ng-template>
-                </ng-container>
-              </tbody>
-              
-              
-          </table>
-      </div>
+  <!-- Entry Log Table Container -->
+  <div class="bg-white shadow-md rounded-lg overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white text-gray-800 border-separate" style="border-spacing: 0">
+        <!-- Table Head -->
+        <thead>
+          <tr class="bg-gray-100 text-sm uppercase tracking-wide text-left text-gray-600 font-semibold border-b">
+            <th class="px-6 py-4">Log ID</th>
+            <th class="px-6 py-4">User ID</th>
+            <th class="px-6 py-4">Staff ID</th>
+            <th class="px-6 py-4">Entry Time</th>
+            <th class="px-6 py-4">Exit Time</th>
+          </tr>
+        </thead>
+
+        <!-- Table Body -->
+        <tbody>
+          <!-- Loading State -->
+          <tr *ngIf="isLoading">
+            <td colspan="5" class="px-6 py-4 text-center">
+              <div class="flex justify-center items-center space-x-2">
+                <span class="loading loading-spinner loading-sm"></span>
+                <p>Loading...</p>
+              </div>
+            </td>
+          </tr>
+
+          <!-- No Records State -->
+          <ng-container *ngIf="!isLoading">
+            <ng-container *ngIf="paginatedEntryLogs.length === 0; else logsTable">
+              <tr>
+                <td colspan="5" class="px-6 py-4 text-center text-gray-500">No entry logs available.</td>
+              </tr>
+            </ng-container>
+
+            <!-- Log Records Table Rows -->
+            <ng-template #logsTable>
+              <tr
+                *ngFor="let log of paginatedEntryLogs"
+                class="border-b hover:bg-gray-50 transition duration-200"
+              >
+                <td class="px-6 py-4">{{ log.log_id }}</td>
+                <td class="px-6 py-4">{{ log.user_id }}</td>
+                <td class="px-6 py-4">{{ log.staff_id }}</td>
+                <td class="px-6 py-4">{{ log.entry_time }}</td>
+                <td class="px-6 py-4">{{ log.exit_time }}</td>
+              </tr>
+            </ng-template>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
   </div>
 
- 
+  <!-- Pagination Controls -->
+  <div class="flex justify-between items-center mt-4">
+    <button
+      (click)="previousPage()"
+      [disabled]="currentPage === 1"
+      class="btn btn-sm bg-gray-800 text-white hover:bg-gray-700 px-4 py-2"
+    >
+      Previous
+    </button>
+    <span class="text-gray-600">Page {{ currentPage }} of {{ totalPages }}</span>
+    <button
+      (click)="nextPage()"
+      [disabled]="currentPage === totalPages"
+      class="btn btn-sm bg-gray-800 text-white hover:bg-gray-700 px-4 py-2"
+    >
+      Next
+    </button>
+  </div>
 </div>

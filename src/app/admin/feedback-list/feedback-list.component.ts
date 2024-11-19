@@ -6,6 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FeedbackData } from '../../CORE/models/feedback/feedback';
 import { getUserSession } from '../../HELPER/user-service';
 import { Users } from '../../CORE/models/users/users.model';
+import { NavbarComponent } from '../../navbar/navbar.component';
+
 
 // src/app/models/feedback.model.ts
 export interface Feedback {
@@ -19,7 +21,7 @@ export interface Feedback {
 @Component({
   selector: 'app-feedback-list',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, NavbarComponent],
   templateUrl: './feedback-list.component.html',
   styleUrls: ['./feedback-list.component.css'],
   providers: [StaffService],
@@ -101,4 +103,22 @@ export class FeedbackListComponent {
   //   this.router.navigate(['/feedback-form']);
   //   // Implement your logic for creating a new user here, e.g., opening a modal
   // }
+
+    // Method to delete feedback
+    deleteFeedback(feedback_id: string) {
+      this.isLoading = true;
+      console.log('deleting feedback...');
+      this.staffService.deleteFeedbackById(feedback_id).subscribe(
+        (feedback: any) => {
+          if (feedback.status === '0000') {
+            alert('Successfully delete');
+            this.loadFeedbackList();
+          }
+        },
+        (error) => {
+          console.error('Error fetching entry logs:', error);
+          this.isLoading = false;
+        }
+      );
+    }
 }

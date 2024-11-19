@@ -5,11 +5,13 @@ import { UsersService } from '../../CORE/services/users/users.service';
 import { UsersResponse } from '../../CORE/models/users/users.model';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { NavbarComponent } from '../../navbar/navbar.component';
+
 
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
-  imports: [FormsModule, CommonModule, HttpClientModule],
+  imports: [FormsModule, CommonModule, HttpClientModule, NavbarComponent],
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.css'],
   providers: [UsersService],

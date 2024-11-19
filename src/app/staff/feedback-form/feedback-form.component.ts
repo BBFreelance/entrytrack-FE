@@ -6,6 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FeedbackData } from '../../CORE/models/feedback/feedback';
 import { Users } from '../../CORE/models/users/users.model';
 import { getUserSession } from '../../HELPER/user-service';
+import { NavbarComponent } from '../../navbar/navbar.component';
+
 
 export interface Feedback {
   feedback_id: number; // Primary key
@@ -18,7 +20,7 @@ export interface Feedback {
 @Component({
   selector: 'app-feedback-form',
   standalone: true,
-  imports: [FormsModule, HttpClientModule], // Include FormsModule here
+  imports: [FormsModule, HttpClientModule,NavbarComponent], // Include FormsModule here
   templateUrl: './feedback-form.component.html',
   styleUrls: ['./feedback-form.component.css'], // Fixed to styleUrls
   providers: [StaffService],

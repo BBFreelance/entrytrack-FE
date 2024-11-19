@@ -6,6 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FeedbackData } from '../../CORE/models/feedback/feedback';
 import { getUserSession } from '../../HELPER/user-service';
 import { Users } from '../../CORE/models/users/users.model';
+import { NavbarComponent } from '../../navbar/navbar.component';
+
 
 // src/app/models/feedback.model.ts
 export interface Feedback {
@@ -20,7 +22,7 @@ export interface Feedback {
 @Component({
   selector: 'app-feedback-list',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, NavbarComponent],
   templateUrl: './security-feedback-list.component.html',
   styleUrls: ['./security-feedback-list.component.css'],
   providers: [StaffService],

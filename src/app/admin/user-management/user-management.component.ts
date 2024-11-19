@@ -6,6 +6,8 @@ import { Users } from '../../CORE/models/users/users.model';
 import { AdminService } from '../../CORE/services/admin/admin.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ChangeDetectorRef } from '@angular/core';
+import { NavbarComponent } from '../../navbar/navbar.component';
+
 
 
 interface User {
@@ -18,7 +20,7 @@ interface User {
 @Component({
   selector: 'app-user-management',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, NavbarComponent],
   templateUrl: './user-management.component.html',
   styleUrls: ['./user-management.component.css'],
   providers: [AdminService],
@@ -30,7 +32,7 @@ paginatedUsers: User[] = [];
 isLoading: boolean = true;
 
 currentPage: number = 1;
-itemsPerPage: number = 5;
+itemsPerPage: number = 6;
 totalPages: number = 0;
 pageNumbers: number[] = [];
 

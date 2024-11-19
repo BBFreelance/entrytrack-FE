@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { Router } from '@angular/router'; 
+import { NavbarComponent } from '../../navbar/navbar.component';
+
 
 
 @Component({
   selector: 'app-change-password',
   standalone: true,
-  imports: [FormsModule], // Add FormsModule here
+  imports: [FormsModule,NavbarComponent], // Add FormsModule here
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.css']
 })

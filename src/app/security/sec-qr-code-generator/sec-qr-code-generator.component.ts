@@ -3,6 +3,8 @@ import { QRCodeModule } from 'angularx-qrcode'; // Import the QRCodeModule here 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // For using [(ngModel)]
 import { interval, Subscription } from 'rxjs';
+import { NavbarComponent } from '../../navbar/navbar.component';
+
 import {
   HttpClient,
   HttpClientModule,
@@ -14,7 +16,7 @@ import {
   standalone: true,
   templateUrl: './sec-qr-code-generator.component.html',
   styleUrl: './sec-qr-code-generator.component.css',
-  imports: [QRCodeModule, CommonModule, FormsModule, HttpClientModule], // Import modules needed for this component
+  imports: [QRCodeModule, CommonModule, FormsModule, HttpClientModule, NavbarComponent], // Import modules needed for this component
 })
 export class SecQrCodeGeneratorComponent {
   qrData: string = ''; // Holds the dynamic QR code data

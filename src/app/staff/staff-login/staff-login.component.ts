@@ -8,16 +8,17 @@ import { LoginResponse } from '../../CORE/models/login-response/login-response.m
 import { StaffService } from '../../CORE/services/staff/staff.service';
 import { Users } from '../../CORE/models/users/users.model';
 import { AuthService } from '../../CORE/services/auth/auth.service';
+import { NavbarComponent } from '../../navbar/navbar.component';
 
 @Component({
   selector: 'app-staff-login',
   standalone: true,
-  imports: [FormsModule, CommonModule, HttpClientModule], // Add FormsModule to the imports array
+  imports: [FormsModule, CommonModule, NavbarComponent, HttpClientModule], // Add NavbarComponent to the imports array
   templateUrl: './staff-login.component.html',
   styleUrls: ['./staff-login.component.css'],
-  providers: [AuthService]
-  
+  providers: [AuthService],
 })
+
 export class StaffLoginComponent {
   email: string = '';
   password: string = '';

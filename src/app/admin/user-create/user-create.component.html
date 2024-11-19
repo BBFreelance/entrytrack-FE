@@ -1,10 +1,12 @@
-<div class="container mx-auto p-4">
-    <h2 class="text-2xl font-bold mb-4">Create User</h2>
+<app-navbar></app-navbar> <!-- Navbar Component -->
 
-    <!-- Remove the outer form and keep only one form with (ngSubmit)="submitUser()" -->
+<div class="container mx-auto p-4">
+    <h2 class="text-2xl font-bold mb-6 text-center text-white">Create User</h2>
+
+    <!-- Form for creating user -->
     <form (ngSubmit)="submitUser()">
-        <div class="grid grid-cols-1 gap-4">
-            <!-- Use [(ngModel)] for two-way binding -->
+        <div class="grid grid-cols-1 gap-6">
+            <!-- Name Input -->
             <input 
                 type="text" 
                 [(ngModel)]="name" 
@@ -13,6 +15,7 @@
                 class="input w-full" 
                 required />
 
+            <!-- Email Input -->
             <input 
                 type="email" 
                 [(ngModel)]="email" 
@@ -21,6 +24,7 @@
                 class="input w-full" 
                 required />
 
+            <!-- Role Selection -->
             <select 
                 [(ngModel)]="role" 
                 name="role" 
@@ -31,6 +35,7 @@
                 <option value="security">Security Guard</option>
             </select>
 
+            <!-- Password Input -->
             <input 
                 type="password" 
                 [(ngModel)]="password" 
@@ -39,10 +44,10 @@
                 class="input w-full" 
                 required />
 
-            <!-- Set button type as submit -->
+            <!-- Submit Button -->
             <button 
                 type="submit" 
-                class="w-full h-12 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-all duration-200">
+                class="w-full h-12 bg-gray-800 hover:bg-gray-700 text-white font-semibold rounded-lg transition-all duration-200">
                 Create User
             </button>
         </div>
@@ -50,85 +55,53 @@
 </div>
 
 <style>
+    /* Container style */
     .container {
         max-width: 600px;
         margin: auto;
         padding: 1rem;
+        margin-top: 100px;
+        background-color: white; 
+        border-radius: 8px;
     }
 
-    /* Reset styles for input and select */
+    /* Input and select styles */
     .input, .select {
-        padding: 0.5rem;
-        border: 1px solid #ccc;
+        padding: 0.75rem;
+        border: 1px solid #444;
         border-radius: 0.375rem;
-        background-color: white; /* Set background color to white */
-        color: black; /* Set text color */
-        transition: border-color 0.2s ease; /* Smooth transition for border color */
+        background-color: #f9f9f9; /* Light background */
+        color: #333; /* Dark text color for readability */
+        transition: border-color 0.2s ease;
     }
 
     .input:focus, .select:focus {
-        border-color: #007bff; /* Change border color on focus */
-        outline: none; /* Remove default outline */
+        border-color: #007bff;
+        outline: none;
     }
 
     .input:disabled, .select:disabled {
-        background-color: #f5f5f5; /* Set background color for disabled state */
-        color: #999; /* Set text color for disabled state */
+        background-color: #e0e0e0;
+        color: #999;
     }
 
-    .btn {
-        padding: 0.5rem 1rem;
-        background-color: #007bff;
+    /* Button styles */
+    .btn, button[type="submit"] {
+        padding: 0.75rem 1rem;
+        background-color: #444;
         color: white;
         border: none;
         border-radius: 0.375rem;
         cursor: pointer;
+        transition: background-color 0.2s ease;
     }
 
-    .btn:hover {
-        background-color: #0056b3;
-    }
-</style>
-
-
-
-<style>
-    .container {
-        max-width: 600px;
-        margin: auto;
-        padding: 1rem;
+    .btn:hover, button[type="submit"]:hover {
+        background-color: #666;
     }
 
-    /* Reset styles for input and select */
-    .input, .select {
-        padding: 0.5rem;
-        border: 1px solid #ccc;
-        border-radius: 0.375rem;
-        background-color: white; /* Set background color to white */
-        color: black; /* Set text color */
-        transition: border-color 0.2s ease; /* Smooth transition for border color */
-    }
-
-    .input:focus, .select:focus {
-        border-color: #007bff; /* Change border color on focus */
-        outline: none; /* Remove default outline */
-    }
-
-    .input:disabled, .select:disabled {
-        background-color: #f5f5f5; /* Set background color for disabled state */
-        color: #999; /* Set text color for disabled state */
-    }
-
-    .btn {
-        padding: 0.5rem 1rem;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 0.375rem;
-        cursor: pointer;
-    }
-
-    .btn:hover {
-        background-color: #0056b3;
+    /* Header styles */
+    h2 {
+        color: #333; /* Dark text for the header */
     }
 </style>

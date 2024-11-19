@@ -1,19 +1,24 @@
-<div class="flex justify-center items-center h-screen bg-white">
-  <div class="card w-96 bg-white shadow-xl">
-    <div class="card-body items-center text-center">
-      <div class="avatar">
-        <div class="w-24 rounded-full">
-          <img src="https://i.pravatar.cc/150?img=32" alt="Profile Picture" />
-        </div>
-      </div>
-      <h2 class="card-title mt-4">{{ user.name }}</h2>
-      <p class="text-sm text-gray-500">{{ user.role }}</p>
+<app-navbar></app-navbar> <!-- This will render the Navbar -->
 
-      <div class="mt-4 flex space-x-4">
-        <button (click)="editProfile()" class="btn btn-primary btn-sm text-white">
+<div class="flex justify-center items-center min-h-screen bg-white">
+  <div class="card w-full max-w-lg bg-white border border-gray-300 rounded-lg shadow-lg">
+    <div class="card-body p-8 text-center">
+      <!-- Profile Name and Role -->
+      <h2 class="text-3xl font-semibold text-black mb-4">{{ user.name }}</h2>
+      <p class="text-lg text-gray-600 mb-8">{{ user.role }}</p>
+
+      <!-- Action Buttons -->
+      <div class="flex justify-center space-x-4 mt-4">
+        <button
+          (click)="editProfile()"
+          class="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition duration-200 text-sm font-medium"
+        >
           Edit Profile
         </button>
-        <button (click)="changePassword()" class="btn btn-accent btn-sm text-white">
+        <button
+          (click)="changePassword()"
+          class="px-4 py-2 bg-white text-black border border-black hover:bg-gray-200 rounded-md transition duration-200 text-sm font-medium"
+        >
           Change Password
         </button>
       </div>

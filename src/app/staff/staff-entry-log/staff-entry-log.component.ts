@@ -8,11 +8,12 @@ import { StaffService } from '../../CORE/services/staff/staff.service';
 import { HttpClientModule } from '@angular/common/http';
 import { getUserSession } from '../../HELPER/user-service';
 import { Users } from '../../CORE/models/users/users.model';
+import { NavbarComponent } from '../../navbar/navbar.component';
 
 @Component({
   selector: 'app-staff-entry-log',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, NavbarComponent],
   templateUrl: './staff-entry-log.component.html',
   styleUrls: ['./staff-entry-log.component.css'],
   providers: [StaffService],
@@ -21,8 +22,8 @@ export class StaffEntryLogComponent {
   userData?: Users;
   entryLogs: EntryLogData[] = [];
   currentPage: number = 1;
-  itemsPerPage: number = 7; // Number of logs per page
-  totalPages: number = Math.ceil(this.entryLogs.length / this.itemsPerPage); // Calculate total pages
+  itemsPerPage: number = 8; // Number of logs per page
+  totalPages: number = 0; // Total pages will be calculated after loading logs
   paginatedEntryLogs: EntryLogData[] = [];
   isLoading: boolean = true; // Add loading state
 
@@ -30,7 +31,7 @@ export class StaffEntryLogComponent {
 
   ngOnInit(): void {
     this.userData = getUserSession();
-    console.log('this.userData', this.userData);
+    console.log('User Data:', this.userData);
     this.loadEntryLogs(); // Load logs when the component is initialized
   }
 
@@ -39,12 +40,10 @@ export class StaffEntryLogComponent {
 
     this.staffService.getEntryLogList(userId).subscribe(
       (logs: any) => {
-        // Expecting logs to be of type EntryLog
-        this.entryLogs = logs.data; // Now logs.data should be correctly recognized as EntryLogData[]
-        this.paginatedEntryLogs = logs.data;
+        this.entryLogs = logs.data; // Load all logs data
         this.totalPages = Math.ceil(this.entryLogs.length / this.itemsPerPage); // Calculate total pages
-        console.log('logs', logs);
-        console.log('this.entryLogs', this.entryLogs);
+        this.updatePaginatedLogs(); // Update the current page logs
+        console.log('Fetched Logs:', logs);
         this.isLoading = false; // Set loading to false after data is fetched
       },
       (error) => {
@@ -54,11 +53,11 @@ export class StaffEntryLogComponent {
     );
   }
 
-  // updatePaginatedLogs(): void {
-  //   const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-  //   const endIndex = startIndex + this.itemsPerPage;
-  //   this.paginatedEntryLogs = this.entryLogs.slice(startIndex, endIndex); // Slice logs for the current page
-  // }
+  updatePaginatedLogs(): void {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedEntryLogs = this.entryLogs.slice(startIndex, endIndex); // Slice logs for the current page
+  }
 
   createEntryLog(): void {
     console.log('Create new entry log logic goes here');
@@ -78,14 +77,14 @@ export class StaffEntryLogComponent {
   previousPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
-      this.loadEntryLogs(); // Load logs for the new page
+      this.updatePaginatedLogs(); // Update paginated logs for the new page
     }
   }
 
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
-      this.loadEntryLogs(); // Load logs for the new page
+      this.updatePaginatedLogs(); // Update paginated logs for the new page
     }
   }
 }
