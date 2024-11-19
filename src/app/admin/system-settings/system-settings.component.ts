@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AdminService } from '../../CORE/services/admin/admin.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router'; 
 import { NavbarComponent } from '../../navbar/navbar.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 export interface SystemSetting {
   setting_id: number;
-  user_id: number; // Assuming this is the admin user
   setting_name: string;
   setting_value: string;
 }
@@ -14,34 +15,85 @@ export interface SystemSetting {
 @Component({
   selector: 'app-system-settings',
   standalone: true,
-  imports: [CommonModule, FormsModule, NavbarComponent],
   templateUrl: './system-settings.component.html',
-  styleUrls: ['./system-settings.component.css'], // Optional: Add styles
+  styleUrls: ['./system-settings.component.css'],
+  imports: [CommonModule, FormsModule, NavbarComponent, HttpClientModule],
+  providers: [AdminService],
 })
 export class SystemSettingsComponent implements OnInit {
   settings: SystemSetting[] = [];
-  userId: number = 1; // Replace with the actual admin user ID
-
-  constructor(private router: Router) {}
-  // Default dropdown options for settings
+  isLoading: boolean = false;
+  isUpdating: boolean = false;
   dropdownOptions: { [key: string]: string[] } = {
-    'System Theme': ['Light', 'Dark'],
-    'Allow Password Reset': ['Enabled', 'Disabled'],
+    'Dark Mode': ['True', 'False'],
   };
 
+  constructor(private router: Router, private adminService: AdminService) {}
+
   ngOnInit(): void {
-    // Initialize default settings
-    this.settings = [
-      { setting_id: 1, user_id: this.userId, setting_name: 'System Theme', setting_value: 'Light' },
-      { setting_id: 3, user_id: this.userId, setting_name: 'Allow Password Reset', setting_value: 'Enabled' },
-    ];
+    this.loadSettings();
   }
 
-  updateSetting(setting: SystemSetting) {
-    // Logic for updating the setting can be added here
-    console.log(`Updated Setting: ${setting.setting_name} = ${setting.setting_value}`);
+  /**
+   * Load system settings from the API
+   */
+  loadSettings(): void {
+    this.isLoading = true;
+    // Assume setting ID 1 is for "Dark Mode" for demonstration
+    this.adminService.getSystemSettingById(1).subscribe({
+      next: (response: any) => {
+        this.settings = [
+          {
+            setting_id: 1,
+            setting_name: 'Dark Mode',
+            setting_value: response.dark_mode ? 'True' : 'False',
+          },
+        ];
+        this.isLoading = false;
+      },
+      error: (err: any) => {
+        console.error('Failed to load settings:', err);
+        this.isLoading = false;
+      },
+    });
   }
-  cancel() {
-    this.router.navigate(['/admin-dashboard']); // Adjust the route as needed for your application
+
+  /**
+   * Update a specific system setting
+   * @param setting The setting to be updated
+   */
+  updateSetting(setting: SystemSetting): void {
+    this.isUpdating = true;
+    console.log(
+      `Updated Setting: ${setting.setting_name} = ${setting.setting_value}`
+    );
+
+    // Convert setting value to boolean
+    const updatedValue = setting.setting_value === 'True';
+
+    // Call the update API
+    this.adminService
+      .updateSystemSetting(setting.setting_id, { dark_mode: updatedValue })
+      .subscribe({
+        next: () => {
+          this.isUpdating = false;
+          console.log('Setting updated successfully');
+          // Success alert
+          alert('Setting updated successfully!');
+        },
+        error: (err: any) => {
+          this.isUpdating = false;
+          console.error('Failed to update setting:', err);
+          // Error alert
+          alert('Failed to update setting. Please try again.');
+        },
+      });
+  }
+
+  /**
+   * Handle cancel button click
+   */
+  cancel(): void {
+    this.router.navigate(['/admin-dashboard']); // Adjust the route as needed
   }
 }

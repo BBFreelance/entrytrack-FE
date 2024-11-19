@@ -46,4 +46,18 @@ export class AdminService {
     return this.httpClient.get<AccessControlEntry[]>(`${config.SERVER_API_ENDPOINT}/access-control-lists`);
   }
 
+  /**
+   * Fetch the system setting by ID
+   * @param id - The ID of the system setting
+   * @returns An Observable with the dark_mode value
+   */
+  getSystemSettingById(id: number): Observable<{ dark_mode: boolean }> {
+    return this.httpClient.get<{ dark_mode: boolean }>(`${config.SERVER_API_ENDPOINT}/system-settings/${id}`);
+  }
+
+  // Update a system setting by ID
+  updateSystemSetting(id: number, data: { dark_mode: boolean }): Observable<void> {
+    return this.httpClient.put<void>(`${config.SERVER_API_ENDPOINT}/system-settings/${id}`, data);
+  }
+
 }

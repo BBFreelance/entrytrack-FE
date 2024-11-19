@@ -19,12 +19,14 @@ export const getErrorMessageFromAxios = (err: any) => {
   }
 };
 
+export const isBrowser = () => typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+
 export const getUserSession = () => {
-  if (localStorage.getItem('userData')) {
+  if (isBrowser() && localStorage.getItem('userData')) {
     const data: any = localStorage.getItem('userData');
     return JSON.parse(data);
   }
-  return null; //if token not available on localstorage
+  return null; // Return null if token is not available in localStorage or in SSR.
 };
 
 // OLD
@@ -36,6 +38,10 @@ export const getUserSession = () => {
 // };
 
 export const checkUserSession = () => {
+  if (!isBrowser()) {
+    return false; // Return false in SSR.
+  }
+
   const user = localStorage.getItem('user');
 
   if (user) {
@@ -49,7 +55,6 @@ export const checkUserSession = () => {
       // Check if the token is expired
       if (decodedToken.exp < currentTime) {
         localStorage.removeItem('user');
-
         return false;
       }
 
