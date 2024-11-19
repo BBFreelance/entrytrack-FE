@@ -3,10 +3,11 @@ import { Router } from '@angular/router';
 import { DefaultNavbarComponent } from "../components/default-navbar/default-navbar.component";
 
 
+
 @Component({
   selector: 'app-index',
   standalone: true,
-  imports: [DefaultNavbarComponent],
+  imports: [],
   templateUrl: './index.component.html',
   styleUrl: './index.component.css'
 })
