@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router'; 
 import { NavbarComponent } from '../../navbar/navbar.component';
 
-
 export interface SystemSetting {
   setting_id: number;
   user_id: number; // Assuming this is the admin user
@@ -15,7 +14,7 @@ export interface SystemSetting {
 @Component({
   selector: 'app-system-settings',
   standalone: true,
-  imports: [CommonModule, FormsModule,NavbarComponent],
+  imports: [CommonModule, FormsModule, NavbarComponent],
   templateUrl: './system-settings.component.html',
   styleUrls: ['./system-settings.component.css'], // Optional: Add styles
 })
@@ -26,16 +25,14 @@ export class SystemSettingsComponent implements OnInit {
   constructor(private router: Router) {}
   // Default dropdown options for settings
   dropdownOptions: { [key: string]: string[] } = {
-    'Password Complexity': ['Must include uppercase, lowercase', 'Must include uppercase and numbers'],
-    'Session Timeout': ['15 minutes', '30 minutes'],
+    'System Theme': ['Light', 'Dark'],
     'Allow Password Reset': ['Enabled', 'Disabled'],
   };
 
   ngOnInit(): void {
     // Initialize default settings
     this.settings = [
-      { setting_id: 1, user_id: this.userId, setting_name: 'Password Complexity', setting_value: 'Must include uppercase, lowercase' },
-      { setting_id: 2, user_id: this.userId, setting_name: 'Session Timeout', setting_value: '15 minutes' },
+      { setting_id: 1, user_id: this.userId, setting_name: 'System Theme', setting_value: 'Light' },
       { setting_id: 3, user_id: this.userId, setting_name: 'Allow Password Reset', setting_value: 'Enabled' },
     ];
   }
