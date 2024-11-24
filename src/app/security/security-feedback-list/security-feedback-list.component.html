@@ -1,6 +1,6 @@
 <app-navbar></app-navbar> <!-- Navbar Component -->
 
-<div class="max-w-2xl mx-auto mt-10 p-8 bg-white border border-gray-300 rounded-lg shadow-lg">
+<div class="max-w-2xl mx-auto mt-10 p-8 bg-base-100 border border-gray-300 rounded-lg shadow-lg">
 
 
   <!-- Feedback List Heading -->
@@ -21,7 +21,7 @@
           currentPage * itemsPerPage
         )
       "
-      class="p-4 bg-gray-50 border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200"
+      class="p-4 bg-base-200 border border-base-300 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200"
     >
       <div class="flex justify-between items-center">
         <div>
@@ -45,15 +45,15 @@
     <button
       (click)="currentPage = currentPage - 1"
       [disabled]="currentPage === 1"
-      class="px-4 py-2 bg-black text-white text-sm font-semibold rounded-lg hover:bg-gray-800 disabled:bg-gray-300 transition-colors duration-200"
+      class="px-4 py-2 bg-black text-black text-sm font-semibold rounded-lg hover:bg-gray-800 disabled:bg-gray-300 transition-colors duration-200"
     >
       Previous
     </button>
-    <span class="text-sm text-gray-700">Page {{ currentPage }} of {{ totalPages }}</span>
+    <span class="text-sm text-black">Page {{ currentPage }} of {{ totalPages }}</span>
     <button
       (click)="currentPage = currentPage + 1"
       [disabled]="currentPage === totalPages"
-      class="px-4 py-2 bg-black text-white text-sm font-semibold rounded-lg hover:bg-gray-800 disabled:bg-gray-300 transition-colors duration-200"
+      class="px-4 py-2 bg-black text-black text-sm font-semibold rounded-lg hover:bg-gray-800 disabled:bg-gray-300 transition-colors duration-200"
     >
       Next
     </button>

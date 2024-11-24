@@ -1,7 +1,7 @@
 <app-navbar></app-navbar> <!-- This will render the Navbar -->
 
-<div class="h-screen flex flex-col items-center justify-center bg-white overflow-hidden">
-  <div class="w-full max-w-lg shadow-md rounded-lg bg-white p-8 border border-black">
+<div class="h-screen flex flex-col items-center justify-center bg-base-100 overflow-hidden">
+  <div class="w-full max-w-lg shadow-md rounded-lg bg-base-100 p-8 border border-black">
     <h2 class="text-center text-2xl font-semibold mb-6 text-gray-800">
       Edit Profile
     </h2>
@@ -9,7 +9,7 @@
       <!-- Name Input -->
       <div class="mb-6">
         <label
-          class="block text-base font-medium text-gray-700 mb-1"
+          class="block text-base font-medium text-black mb-1"
           for="name"
         >
           Name
@@ -19,7 +19,7 @@
           id="name"
           [(ngModel)]="user.name"
           name="name"
-          class="w-full h-12 px-4 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
+          class="w-full h-12 px-4 bg-base-100 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
           required
           placeholder="Enter your name"
         />
@@ -28,7 +28,7 @@
       <!-- Email Input -->
       <div class="mb-6">
         <label
-          class="block text-base font-medium text-gray-700 mb-1"
+          class="block text-base font-medium text-black mb-1"
           for="email"
         >
           Email
@@ -38,7 +38,7 @@
           id="email"
           [(ngModel)]="user.email"
           name="email"
-          class="w-full h-12 px-4 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
+          class="w-full h-12 px-4 bg-base-100 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
           required
           placeholder="email@example.com"
         />
@@ -49,13 +49,13 @@
         <button
           type="button"
           (click)="cancel()"
-          class="w-full h-12 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition-all duration-200"
+          class="w-full h-12 bg-red-500 hover:bg-red-600 text-black font-semibold rounded-lg transition-all duration-200"
         >
           Cancel
         </button>
         <button
           type="submit"
-          class="w-full h-12 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-all duration-200"
+          class="w-full h-12 bg-blue-500 hover:bg-blue-600 text-black font-semibold rounded-lg transition-all duration-200"
         >
           <span *ngIf="is_loading">
             <div class="flex justify-center items-center w-full">

@@ -1,12 +1,12 @@
 <app-navbar></app-navbar> <!-- This will render the Navbar -->
 
-<div class="max-w-md mx-auto mt-12 p-6 border border-black rounded-lg bg-white shadow-md">
+<div class="max-w-md mx-auto mt-12 p-6 border border-black rounded-lg bg-base-100 shadow-md">
   <h2 class="text-2xl font-semibold mb-6 text-black text-center">Submit Your Feedback</h2>
   
   <!-- Feedback Textarea -->
   <textarea
     [(ngModel)]="feedbackText"
-    class="textarea w-full h-28 border border-gray-300 rounded-lg p-3 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-gray-300"
+    class="textarea w-full h-28 border border-base-300 rounded-lg p-3 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-gray-300"
     placeholder="Write your feedback here..."
     required
   ></textarea>
@@ -14,7 +14,7 @@
   <!-- Submit Button -->
   <button 
     (click)="submitFeedback()" 
-    class="mt-6 w-full py-3 bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition-colors"
+    class="mt-6 w-full py-3 bg-black text-black rounded-lg font-semibold hover:bg-gray-800 transition-colors"
   >
     Submit Feedback
   </button>

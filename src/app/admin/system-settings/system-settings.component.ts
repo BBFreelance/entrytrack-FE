@@ -78,8 +78,13 @@ export class SystemSettingsComponent implements OnInit {
         next: () => {
           this.isUpdating = false;
           console.log('Setting updated successfully');
+          localStorage.setItem('dark_mode', updatedValue.toString());
           // Success alert
           alert('Setting updated successfully!');
+          // window.location.reload();
+          this.router.navigate(['/admin-dashboard']).then(() => {
+            window.location.reload();
+          });
         },
         error: (err: any) => {
           this.isUpdating = false;

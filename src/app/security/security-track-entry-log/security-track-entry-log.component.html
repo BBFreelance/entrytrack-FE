@@ -4,7 +4,7 @@
    
   
     <!-- Table of Entry Logs -->
-    <div class="bg-white shadow-lg rounded-lg p-6">
+    <div class="bg-base-100 shadow-lg rounded-lg p-6">
         <div class="overflow-x-auto">
             <table class="table w-full text-black border-collapse">
                 <!-- Table Head -->
@@ -19,7 +19,7 @@
                 </thead>
                 <!-- Table Body -->
                 <tbody>
-                    <tr *ngFor="let log of paginatedEntryLogs" class="hover:bg-gray-100 border-b-0">
+                    <tr *ngFor="let log of paginatedEntryLogs" class="hover:bg-base-300 border-b-0">
                         <td class="border-b-0">{{ log.log_id }}</td>
                         <td class="border-b-0">{{ log.user_id }}</td>
                         <td class="border-b-0">{{ log.staff_id }}</td>
@@ -37,7 +37,7 @@
         <button 
             (click)="previousPage()" 
             [disabled]="currentPage === 1"
-            class="btn btn-sm bg-black text-white border-0 hover:bg-gray-800 transition duration-200"
+            class="btn btn-sm bg-black text-black border-0 hover:bg-gray-800 transition duration-200"
         >
             Previous
         </button>
@@ -45,7 +45,7 @@
         <button 
             (click)="nextPage()" 
             [disabled]="currentPage === totalPages"
-            class="btn btn-sm bg-black text-white border-0 hover:bg-gray-800 transition duration-200"
+            class="btn btn-sm bg-black text-black border-0 hover:bg-gray-800 transition duration-200"
         >
             Next
         </button>
